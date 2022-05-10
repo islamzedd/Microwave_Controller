@@ -420,6 +420,11 @@
               <FileType>5</FileType>
               <FilePath>.\tm4c123gh6pm.h</FilePath>
             </File>
+            <File>
+              <FileName>LCD_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LCD_Driver.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
