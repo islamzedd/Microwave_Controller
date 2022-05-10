@@ -4,5 +4,5 @@
 #include "string.h"
 
 int main(){
-	
+	test ya sa7by
 }
