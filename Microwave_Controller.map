@@ -74,10 +74,10 @@ Image Symbol Table
     __lit__00000000                          0x0000027c   Data           4  entry2.o(.ARM.Collect$$$$00002712)
     .text                                    0x00000280   Section      244  startup_tm4c123.o(.text)
     .text                                    0x00000374   Section        0  controller.o(.text)
-    .text                                    0x00000444   Section       36  init.o(.text)
-    i.__scatterload_copy                     0x00000468   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00000476   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00000478   Section       14  handlers.o(i.__scatterload_zeroinit)
+    .text                                    0x00000574   Section       36  init.o(.text)
+    i.__scatterload_copy                     0x00000598   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x000005a6   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x000005a8   Section       14  handlers.o(i.__scatterload_zeroinit)
     STACK                                    0x20000000   Section      512  startup_tm4c123.o(STACK)
 
     Global Symbols
@@ -222,18 +222,21 @@ Image Symbol Table
     PWM1_3_Handler                           0x0000036b   Thumb Code     2  startup_tm4c123.o(.text)
     PWM1_FAULT_Handler                       0x0000036d   Thumb Code     2  startup_tm4c123.o(.text)
     main                                     0x00000375   Thumb Code     4  controller.o(.text)
-    LCD_Write4bits                           0x00000379   Thumb Code    50  controller.o(.text)
-    LCD4bits_Cmd                             0x000003ab   Thumb Code    26  controller.o(.text)
-    LCD4bits_Init                            0x000003c5   Thumb Code    52  controller.o(.text)
-    LCD4bits_Data                            0x000003f9   Thumb Code    26  controller.o(.text)
-    LCD_WriteString                          0x00000413   Thumb Code    34  controller.o(.text)
-    __scatterload                            0x00000445   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x00000445   Thumb Code     0  init.o(.text)
-    __scatterload_copy                       0x00000469   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00000477   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00000479   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    Region$$Table$$Base                      0x00000488   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00000498   Number         0  anon$$obj.o(Region$$Table)
+    delayUs                                  0x00000379   Thumb Code    50  controller.o(.text)
+    delayMs                                  0x000003ab   Thumb Code    52  controller.o(.text)
+    LCD_Write4bits                           0x000003df   Thumb Code    64  controller.o(.text)
+    LCD4bits_Cmd                             0x0000041f   Thumb Code    44  controller.o(.text)
+    LCD4bits_Init                            0x0000044b   Thumb Code    52  controller.o(.text)
+    LCD4bits_Data                            0x0000047f   Thumb Code    32  controller.o(.text)
+    LCD_WriteString                          0x0000049f   Thumb Code    34  controller.o(.text)
+    buzzerAndSwitchInit                      0x000004c1   Thumb Code   144  controller.o(.text)
+    __scatterload                            0x00000575   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x00000575   Thumb Code     0  init.o(.text)
+    __scatterload_copy                       0x00000599   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x000005a7   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x000005a9   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    Region$$Table$$Base                      0x000005b8   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000005c8   Number         0  anon$$obj.o(Region$$Table)
     __initial_sp                             0x20000200   Data           0  startup_tm4c123.o(STACK)
 
 
@@ -244,9 +247,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00000498, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x000005c8, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000498, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x000005c8, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -261,13 +264,13 @@ Memory Map of the image
     0x0000027c   0x00000000   Code   RO           78    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
     0x0000027c   0x00000004   Code   RO           67    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x000000f4   Code   RO            4  * .text               startup_tm4c123.o
-    0x00000374   0x000000d0   Code   RO           12    .text               controller.o
-    0x00000444   0x00000024   Code   RO           80    .text               mc_w.l(init.o)
-    0x00000468   0x0000000e   Code   RO           84    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00000476   0x00000002   Code   RO           85    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00000478   0x0000000e   Code   RO           86    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x00000486   0x00000002   PAD
-    0x00000488   0x00000010   Data   RO           82    Region$$Table       anon$$obj.o
+    0x00000374   0x00000200   Code   RO           12    .text               controller.o
+    0x00000574   0x00000024   Code   RO           80    .text               mc_w.l(init.o)
+    0x00000598   0x0000000e   Code   RO           84    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x000005a6   0x00000002   Code   RO           85    i.__scatterload_null  mc_w.l(handlers.o)
+    0x000005a8   0x0000000e   Code   RO           86    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x000005b6   0x00000002   PAD
+    0x000005b8   0x00000010   Data   RO           82    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
@@ -289,11 +292,11 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       208         16          0          0          0       2711   controller.o
+       512         36          0          0          0       3323   controller.o
        244          6        620          0        512       5308   startup_tm4c123.o
 
     ----------------------------------------------------------------------
-       452         22        636          0        512       8019   Object Totals
+       756         42        636          0        512       8631   Object Totals
          0          0         16          0          0          0   (incl. Generated)
          0          0          0          0          0          0   (incl. Padding)
 
@@ -332,15 +335,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       540         38        636          0        512       8035   Grand Totals
-       540         38        636          0        512       8035   ELF Image Totals
-       540         38        636          0          0          0   ROM Totals
+       844         58        636          0        512       8647   Grand Totals
+       844         58        636          0        512       8647   ELF Image Totals
+       844         58        636          0          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 1176 (   1.15kB)
+    Total RO  Size (Code + RO Data)                 1480 (   1.45kB)
     Total RW  Size (RW Data + ZI Data)               512 (   0.50kB)
-    Total ROM Size (Code + RO Data + RW Data)       1176 (   1.15kB)
+    Total ROM Size (Code + RO Data + RW Data)       1480 (   1.45kB)
 
 ==============================================================================
 
