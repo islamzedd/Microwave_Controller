@@ -15,6 +15,10 @@ void delayUs (int delay);
 void buzzerAndSwitchInit();
 char* keypad_Getkey(void);												 //Get pressed key on keypad
 void keypad_init(void);														 //Initialize keypad
+void startBuzzer();																 //Start Buzzer
+void stopBuzzer();																 //Stop Buzzer							
+unsigned char EXT_SW_Input();											 //Read switch input
+	
 
 int main(){
 	
@@ -176,4 +180,14 @@ if (col == 0xD0) return keymap[row][1]; /* key in column 1 */
 if (col == 0xB0) return keymap[row][2]; /* key in column 2 */
 if (col == 0x70) return keymap[row][3]; /* key in column 3 */
 return 0; /* just to be safe */
+}
+void startBuzzer(){
+	GPIO_PORTA_DATA_R |= (0x10);
+}
+void stopBuzzer(){
+	GPIO_PORTA_DATA_R &=~ (0x10);
+}
+
+unsigned char EXT_SW_Input(){
+	return GPIO_PORTA_DATA_R & 0x04;
 }
