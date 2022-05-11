@@ -13,6 +13,8 @@ void LCD4bits_Data(unsigned char);                                 //Write a cha
 void delayMs (int delay);
 void delayUs (int delay);
 void buzzerAndSwitchInit();
+char* keypad_Getkey(void);												 //Get pressed key on keypad
+void keypad_init(void);														 //Initialize keypad
 
 int main(){
 	
@@ -105,4 +107,73 @@ void buzzerAndSwitchInit(void){
     GPIO_PORTA_PUR_R |= 0x04;
     GPIO_PORTA_DEN_R |= 0X14;
     GPIO_PORTA_DATA_R &=~ (0x14);
+}
+
+void keypad_init(void)
+{
+SYSCTL->RCGCGPIO |= 0x04; /* enable clock to GPIOC */
+SYSCTL->RCGCGPIO |= 0x10; /* enable clock to GPIOE */
+ 
+GPIOE->DIR |= 0x0F; /* set row pins 3-0 as output */
+GPIOE->DEN |= 0x0F; /* set row pins 3-0 as digital pins */
+GPIOE->ODR |= 0x0F; /* set row pins 3-0 as open drain */
+ 
+GPIOC->DIR &= ~0xF0; /* set column pin 7-4 as input */
+GPIOC->DEN |= 0xF0; /* set column pin 7-4 as digital pins */
+GPIOC->PUR |= 0xF0; /* enable pull-ups for pin 7-4 */
+}
+
+char* keypad_Getkey(void)
+{
+char* keymap[4][4] = {
+{ "1", "2", "3", "Popcorn"},
+{ "4", "5", "6", "Beef"},
+{ "7", "8", "9", "Chicken"},
+{ "*", "0","#", "Cooking Time? "},
+};
+ 
+int row, col;
+ 
+/* check to see any key pressed first */
+GPIOE->DATA = 0; /* enable all rows */
+col = GPIOC->DATA & 0xF0; /* read all columns */
+if (col == 0xF0) return 0; /* no key pressed */
+ 
+/* If a key is pressed, it gets here to find out which key. */
+/* Although it is written as an infinite loop, it will take one of the breaks or return in one pass.*/
+while (1)
+{
+row = 0;
+GPIOE->DATA = 0x0E; /* enable row 0 */
+delayUs(2); /* wait for signal to settle */
+col = GPIOC->DATA & 0xF0;
+if (col != 0xF0) break;
+ 
+row = 1;
+GPIOE->DATA = 0x0D; /* enable row 1 */
+delayUs(2); /* wait for signal to settle */
+col = GPIOC->DATA & 0xF0;
+if (col != 0xF0) break;
+ 
+row = 2;
+GPIOE->DATA = 0x0B; /* enable row 2 */
+delayUs(2); /* wait for signal to settle */
+col = GPIOC->DATA & 0xF0;
+if (col != 0xF0) break;
+ 
+row = 3;
+GPIOE->DATA = 0x07; /* enable row 3 */
+delayUs(2); /* wait for signal to settle */
+col = GPIOC->DATA & 0xF0;
+if (col != 0xF0) break;
+ 
+//return 0; /* if no key is pressed */
+}
+ 
+/* gets here when one of the rows has key pressed */
+if (col == 0xE0) return keymap[row][0]; /* key in column 0 */
+if (col == 0xD0) return keymap[row][1]; /* key in column 1 */
+if (col == 0xB0) return keymap[row][2]; /* key in column 2 */
+if (col == 0x70) return keymap[row][3]; /* key in column 3 */
+return 0; /* just to be safe */
 }
