@@ -1,4 +1,5 @@
 .\controller.o: controller.c
+<<<<<<< HEAD
 .\controller.o: C:\Keil\ARM\Inc\TI\TM4C123\TM4C123.h
 .\controller.o: C:\Keil\ARM\Inc\TI\TM4C123\TM4C123GH6PM.h
 .\controller.o: C:\Keil\ARM\CMSIS\Include\core_cm4.h
@@ -10,3 +11,15 @@
 .\controller.o: tm4c123gh6pm.h
 .\controller.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\controller.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+=======
+.\controller.o: D:\ECE2\Embedded\ARM\Inc\TI\TM4C123\TM4C123.h
+.\controller.o: D:\ECE2\Embedded\ARM\Inc\TI\TM4C123\TM4C123GH6PM.h
+.\controller.o: D:\ECE2\Embedded\ARM\CMSIS\Include\core_cm4.h
+.\controller.o: D:\ECE2\Embedded\ARM\ARMCC\bin\..\include\stdint.h
+.\controller.o: D:\ECE2\Embedded\ARM\CMSIS\Include\core_cmInstr.h
+.\controller.o: D:\ECE2\Embedded\ARM\CMSIS\Include\core_cmFunc.h
+.\controller.o: D:\ECE2\Embedded\ARM\CMSIS\Include\core_cm4_simd.h
+.\controller.o: D:\ECE2\Embedded\ARM\Inc\TI\TM4C123\system_TM4C123.h
+.\controller.o: tm4c123gh6pm.h
+.\controller.o: D:\ECE2\Embedded\ARM\ARMCC\bin\..\include\string.h
+>>>>>>> 404185add9e80d33f3eb5d3648e9b9069abb19db

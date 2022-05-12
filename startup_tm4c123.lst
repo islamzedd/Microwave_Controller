@@ -1226,9 +1226,16 @@ ARM Macro Assembler    Page 19
   961 000000F0                 END
               00000000 
 Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\startu
+<<<<<<< HEAD
 p_tm4c123.d -o.\startup_tm4c123.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\In
 clude -IC:\Keil\ARM\Inc\TI\TM4C123 --predefine="__EVAL SETA 1" --predefine="__M
 ICROLIB SETA 1" --list=.\startup_tm4c123.lst startup_TM4C123.s
+=======
+p_tm4c123.d -o.\startup_tm4c123.o -ID:\ECE2\Embedded\ARM\RV31\INC -ID:\ECE2\Emb
+edded\ARM\CMSIS\Include -ID:\ECE2\Embedded\ARM\Inc\TI\TM4C123 --predefine="__EV
+AL SETA 1" --predefine="__MICROLIB SETA 1" --list=.\startup_tm4c123.lst startup
+_TM4C123.s
+>>>>>>> 404185add9e80d33f3eb5d3648e9b9069abb19db
 
 
 
