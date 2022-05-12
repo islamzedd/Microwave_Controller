@@ -191,3 +191,36 @@ void stopBuzzer(){
 unsigned char EXT_SW_Input(){
 	return GPIO_PORTA_DATA_R & 0x04;
 }
+void timer(){
+	int seconds = timeLeft;
+	int m, s;
+	int i;
+	int j;
+	unsigned char button1_in;
+	char* timer_value = (char*)malloc(13 * sizeof(char));
+	for(i = seconds;i>=0;i--){
+	m = (i)/60;
+	s = (i -(m*60));
+	timeLeft--;
+		
+   sprintf(timer_value,"%02d:%02d",m,s);
+		
+		
+		LCD4bits_Cmd(0x01);
+		LCD4bits_Cmd(0x80);
+		LCD4bits_Cmd(0x85);
+		LCD4bits_Cmd(0x0C);
+		
+		LCD_WriteString(timer_value);
+		for(j=0;j<10;j++){
+			
+			button1_in = SW1_Input();
+			if((button1_in != 0x10)){
+				state=PAUSED;
+				return;
+			}
+			delayMs(100);
+		}
+	}
+	state=FINISHED;
+}
