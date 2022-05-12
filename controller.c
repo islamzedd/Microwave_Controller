@@ -57,7 +57,52 @@ unsigned char EXT_SW_Input();											 //Read switch input
 void timer();	
 
 int main(){
+	LCD4bits_Init();
+	buzzerAndSwitchInit();
+	keypad_init();
+	EXT_SW_Input();
+	delayMs(500);											//delay 500 ms for LCD (MCU is faster than LCD)
+	while(1){
+		switch(state){
+			case INITIAL:
+				initalReset();
+				char* key = keypad_Getkey();
+				if(strcmp(key,"a")==0){
+					cookPopcorn();
+					break;
+				}
+				else if(strcmp(key,"b")==0){
+					cookBeef();
+					break;
+				}
+				else if(strcmp(key,"c")==0){
+					cookChicken();
+					break;
+				}
+				else if(strcmp(key,"d")==0){
+					LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
+					LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+					timeInput();
+					break;
+				}
+				break;
+			case COOKING:
+				turnOnLEDS();
+				timer();
+				break;
+			case WAITING_FOR_WEIGHT:
+				break;
+			case WAITING_FOR_TIME:
+				break;
+			case PAUSED:
+				paused();
+				break;
+			case FINISHED:
+				break;
+		}
+	}
 	
+
 }
 void LCD4bits_Init(void)
 {
@@ -166,10 +211,10 @@ GPIOC->PUR |= 0xF0; /* enable pull-ups for pin 7-4 */
 char* keypad_Getkey(void)
 {
 char* keymap[4][4] = {
-{ "1", "2", "3", "Popcorn"},
-{ "4", "5", "6", "Beef"},
-{ "7", "8", "9", "Chicken"},
-{ "*", "0","#", "Cooking Time? "},
+{ "1", "2", "3", "a"},
+{ "4", "5", "6", "b"},
+{ "7", "8", "9", "c"},
+{ "*", "0","#", "d"},
 };
  
 int row, col;
