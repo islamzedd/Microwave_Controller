@@ -169,10 +169,10 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
 <<<<<<< HEAD
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>78</TopLine>
+      <CurrentLine>99</CurrentLine>
 =======
-      <TopLine>231</TopLine>
+      <TopLine>136</TopLine>
       <CurrentLine>234</CurrentLine>
 >>>>>>> 404185add9e80d33f3eb5d3648e9b9069abb19db
       <bDave2>0</bDave2>
@@ -187,16 +187,14 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-<<<<<<< HEAD
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+<<<<<<< HEAD
+      <TopLine>63</TopLine>
+      <CurrentLine>86</CurrentLine>
 =======
-      <ColumnNumber>20</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>237</TopLine>
-      <CurrentLine>40</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>105</CurrentLine>
 >>>>>>> 404185add9e80d33f3eb5d3648e9b9069abb19db
       <bDave2>0</bDave2>
       <PathWithFileName>.\controller.c</PathWithFileName>

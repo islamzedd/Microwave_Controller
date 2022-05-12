@@ -55,89 +55,13 @@ void startBuzzer();																 //Start Buzzer
 void stopBuzzer();																 //Stop Buzzer							
 unsigned char EXT_SW_Input();											 //Read switch input
 void timer();	
-
-<<<<<<< HEAD
-// Port F initialization
-
-void port_f_initialization( ){
-
-    SYSCTL_RCGCGPIO_R |= 0b10000 ;
-    while( ( SYSCTL_PRGPIO_R & 0b10000 ) == 0 ) ;
-    GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY ;
-    GPIO_PORTF_CR_R = 0b11111 ;
-    GPIO_PORTF_AMSEL_R = 0b00000 ;
-    GPIO_PORTF_PCTL_R &=~ (0X000FFFFF) ;
-    GPIO_PORTF_AFSEL_R = 0b00000 ;
-    //GPIO_PORTF_PUR_R = 0b00000 ;
-    GPIO_PORTF_PDR_R |= 0b10001 ;
-    GPIO_PORTF_DIR_R = 0b01110 ;
-    GPIO_PORTF_DEN_R = 0b11111 ;
-
-}
-
-
-// El functions
-
 void led( int x ) ;
 int sw1( ) ;
 int sw2( ) ;
+void port_f_initialization( ) ;
 
-
-// El main 
-
-void main( ){ }
-
-
-// LEDs Function
-
-void led( int x ){
-    
-    if( x ){                              // to turn on the LEDs insert any number except ZER0
-        
-        GPIO_PORTF_DATA_R |= 0b01110 ;
-        
-    }
-    else{                               // to turn off the LEDs insert ZER0
-        
-        GPIO_PORTF_DATA_R &= 0b10001 ;
-        
-    }
-}
-
-
-// Switch_1 Function
-
-int sw1( ){
-    
-    if ( GPIO_PORTF_DATA_R  & 0b00001 ){
-        
-        return 1 ;                          // return 1 if Switch_1 is pushed
-        
-    }
-    else{
-        
-        return 0 ;                          // return 0 if Switch_1 is not pushed
-        
-    }
-}
-
-
-// Switch_2 Function
-
-int sw2( ){
-    
-    if ( GPIO_PORTF_DATA_R  & 0b10000 ){
-        
-        return 1 ;                          // return 1 if Switch_2 is pushed
-        
-    }
-    else{
-        
-        return 0 ;                          // return 0 if Switch_2 is not pushed
-        
-    }
-=======
 int main(){
+	char* key ;
 	LCD4bits_Init();
 	buzzerAndSwitchInit();
 	keypad_init();
@@ -147,7 +71,7 @@ int main(){
 		switch(state){
 			case INITIAL:
 				initalReset();
-				char* key = keypad_Getkey();
+				key = keypad_Getkey();
 				if(strcmp(key,"a")==0){
 					cookPopcorn();
 					break;
@@ -385,5 +309,72 @@ void timer(){
 		}
 	}
 	state=FINISHED;
->>>>>>> 404185add9e80d33f3eb5d3648e9b9069abb19db
 }
+// Port F initialization
+
+void port_f_initialization( ){
+
+    SYSCTL_RCGCGPIO_R |= 0x10 ;
+    while( ( SYSCTL_PRGPIO_R & 0x10 ) == 0 ) ;
+    GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY ;
+    GPIO_PORTF_CR_R = 0x1F ;
+    GPIO_PORTF_AMSEL_R = 0x00 ;
+    GPIO_PORTF_PCTL_R &=~ (0X000FFFFF) ;
+    GPIO_PORTF_AFSEL_R = 0x00 ;
+    //GPIO_PORTF_PUR_R = 0x00 ;
+    GPIO_PORTF_PDR_R |= 0x11 ;
+    GPIO_PORTF_DIR_R = 0x0E ;
+    GPIO_PORTF_DEN_R = 0x1F ;
+
+}
+
+
+// LEDs Function
+
+void led( int x ){
+    
+    if( x ){                              // to turn on the LEDs insert any number except ZER0
+        
+        GPIO_PORTF_DATA_R |= 0x0E ;
+        
+    }
+    else{                               // to turn off the LEDs insert ZER0
+        
+        GPIO_PORTF_DATA_R &= 0x11 ;
+        
+    }
+}
+
+
+// Switch_1 Function
+
+int sw1( ){
+    
+    if ( GPIO_PORTF_DATA_R  & 0x01 ){
+        
+        return 1 ;                          // return 1 if Switch_1 is pushed
+        
+    }
+    else{
+        
+        return 0 ;                          // return 0 if Switch_1 is not pushed
+        
+    }
+}
+
+
+// Switch_2 Function
+
+int sw2( ){
+    
+    if ( GPIO_PORTF_DATA_R  & 0x10 ){
+        
+        return 1 ;                          // return 1 if Switch_2 is pushed
+        
+    }
+    else{
+        
+        return 0 ;                          // return 0 if Switch_2 is not pushed
+        
+    }
+	}
