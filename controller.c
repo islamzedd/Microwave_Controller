@@ -5,6 +5,15 @@
 #define RS 0x01                     //RS -> PB0 (0x01)
 #define RW 0x02         //RW -> PB1 (0x02)
 #define EN 0x04                    //EN -> PB2 (0x04)
+
+//STATES MACROS
+#define INITIAL 0
+#define COOKING 1
+#define WAITING_FOR_WEIGHT 2
+#define WAITING_FOR_TIME 3
+#define PAUSED 4
+#define FINISHED 5
+
 void LCD4bits_Init(void);                                                     //Initialization of LCD Dispaly
 void LCD_Write4bits(unsigned char, unsigned char); //Write data as (4 bits) on LCD
 void LCD_WriteString(char*);                                             //Write a string on LCD 
