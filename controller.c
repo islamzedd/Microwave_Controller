@@ -1,6 +1,7 @@
 #include "TM4C123.h"    // Device header
 #include "tm4c123gh6pm.h"
 #include "string.h"
+#include "stdio.h"
 #define LCD GPIOB            //LCD port with Tiva C 
 #define RS 0x01                     //RS -> PB0 (0x01)
 #define RW 0x02         //RW -> PB1 (0x02)
@@ -36,6 +37,10 @@
 #define DISPLAYON_CURSOROFF 0x0C
 #define CURSOR_SECOND_LINE_POSITION_TWO 0XC2
 
+int state = INITIAL;
+int timeLeft=0;
+double defroestRate = 0.5;
+
 void LCD4bits_Init(void);                                                     //Initialization of LCD Dispaly
 void LCD_Write4bits(unsigned char, unsigned char); //Write data as (4 bits) on LCD
 void LCD_WriteString(char*);                                             //Write a string on LCD 
@@ -49,7 +54,7 @@ void keypad_init(void);														 //Initialize keypad
 void startBuzzer();																 //Start Buzzer
 void stopBuzzer();																 //Stop Buzzer							
 unsigned char EXT_SW_Input();											 //Read switch input
-	
+void timer();	
 
 int main(){
 	
@@ -237,10 +242,10 @@ void timer(){
    sprintf(timer_value,"%02d:%02d",m,s);
 		
 		
-		LCD4bits_Cmd(0x01);
-		LCD4bits_Cmd(0x80);
-		LCD4bits_Cmd(0x85);
-		LCD4bits_Cmd(0x0C);
+		LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
+		LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+		LCD4bits_Cmd(CURSOR_FIRST_LINE_POSITION_FIVE);
+		LCD4bits_Cmd(DISPLAYON_CURSOROFF);
 		
 		LCD_WriteString(timer_value);
 		for(j=0;j<10;j++){
