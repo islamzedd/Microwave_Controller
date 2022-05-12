@@ -168,18 +168,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <TopLine>227</TopLine>
+      <TopLine>230</TopLine>
       <CurrentLine>234</CurrentLine>
-=======
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
->>>>>>> 59adef6b472cf9d7832427556f0b94e1514237aa
-=======
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
->>>>>>> f9ba03d4c73916f9b0239f296807ec6fd3d2cd68
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup_TM4C123.s</PathWithFileName>
       <FilenameWithoutPath>startup_TM4C123.s</FilenameWithoutPath>
@@ -192,20 +182,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>27</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <TopLine>1</TopLine>
-      <CurrentLine>9</CurrentLine>
-=======
-      <TopLine>162</TopLine>
-      <CurrentLine>194</CurrentLine>
->>>>>>> 59adef6b472cf9d7832427556f0b94e1514237aa
-=======
-      <TopLine>1</TopLine>
-      <CurrentLine>15</CurrentLine>
->>>>>>> f9ba03d4c73916f9b0239f296807ec6fd3d2cd68
+      <TopLine>29</TopLine>
+      <CurrentLine>51</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\controller.c</PathWithFileName>
       <FilenameWithoutPath>controller.c</FilenameWithoutPath>

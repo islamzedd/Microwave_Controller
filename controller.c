@@ -14,6 +14,28 @@
 #define PAUSED 4
 #define FINISHED 5
 
+//LCD COMMANDS MACROS
+#define LCDON_CURSORON 0x0F
+#define CLEAR_DISPLAY_SCREEN 0x01
+#define RETURN_HOME 0x02
+#define DECREMENT_CURSOR 0x04
+#define INCREMENT_CURSOR 0x06
+#define SHIFT_DISPLAY_RIGHT 0x05
+#define SHIFT_DISPLAY_LEFT 0x07
+#define DISPLAYON_CURSORBLINKING 0x0E
+#define FORCE_TO_FIRST_LINE 0x80
+#define FORCE_TO_SECOND_LINE 0xC0
+#define CURSOR_FIRST_LINE_POSITION_THREE 0x83
+#define CURSOR_FIRST_LINE_POSITION_FOUR 0X84
+#define CURSOR_FIRST_LINE_POSITION_FIVE 0x85
+#define CURSOR_FIRST_LINE_POSITION_SIX 0X86
+#define CURSOR_FIRST_LINE_POSITION_SEVEN 0x87
+#define CURSOR_FIRST_LINE_POSITION_EIGHT 0X88
+#define CURSOR_FIRST_LINE_POSITION_NINE 0x89
+#define CURSOR_SECOND_LINE_POSITION_ONE 0xC1
+#define DISPLAYON_CURSOROFF 0x0C
+#define CURSOR_SECOND_LINE_POSITION_TWO 0XC2
+
 void LCD4bits_Init(void);                                                     //Initialization of LCD Dispaly
 void LCD_Write4bits(unsigned char, unsigned char); //Write data as (4 bits) on LCD
 void LCD_WriteString(char*);                                             //Write a string on LCD 

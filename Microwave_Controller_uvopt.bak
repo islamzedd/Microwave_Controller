@@ -75,7 +75,7 @@
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
-      <CpuCode>0</CpuCode>
+      <CpuCode>255</CpuCode>
       <DebugOpt>
         <uSim>0</uSim>
         <uTrg>1</uTrg>
@@ -168,18 +168,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <TopLine>226</TopLine>
+      <TopLine>229</TopLine>
       <CurrentLine>234</CurrentLine>
-=======
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
->>>>>>> 59adef6b472cf9d7832427556f0b94e1514237aa
-=======
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
->>>>>>> f9ba03d4c73916f9b0239f296807ec6fd3d2cd68
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup_TM4C123.s</PathWithFileName>
       <FilenameWithoutPath>startup_TM4C123.s</FilenameWithoutPath>
@@ -192,24 +182,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>9</CurrentLine>
-=======
-      <ColumnNumber>29</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>178</CurrentLine>
->>>>>>> 59adef6b472cf9d7832427556f0b94e1514237aa
-=======
-      <ColumnNumber>1</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>60</TopLine>
-      <CurrentLine>88</CurrentLine>
->>>>>>> f9ba03d4c73916f9b0239f296807ec6fd3d2cd68
+      <TopLine>5</TopLine>
+      <CurrentLine>15</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\controller.c</PathWithFileName>
       <FilenameWithoutPath>controller.c</FilenameWithoutPath>
