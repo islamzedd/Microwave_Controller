@@ -333,9 +333,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000000
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00000eb0, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000fac, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000e98, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000f94, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -350,20 +350,20 @@ Memory Map of the image
     0x0000027c   0x00000000   Code   RO          382    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
     0x0000027c   0x00000004   Code   RO          371    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x000000f4   Code   RO            4  * .text               startup_tm4c123.o
-    0x00000374   0x0000064c   Code   RO           12    .text               controller.o
-    0x000009c0   0x00000024   Code   RO           75    .text               mc_w.l(memcpya.o)
-    0x000009e4   0x0000001c   Code   RO           77    .text               mc_w.l(strcmp.o)
-    0x00000a00   0x0000002c   Code   RO          387    .text               mc_w.l(uidiv.o)
-    0x00000a2c   0x00000024   Code   RO          404    .text               mc_w.l(init.o)
-    0x00000a50   0x00000028   Code   RO          238    i.__0sprintf$6      mc_w.l(printf6.o)
-    0x00000a78   0x000002f4   Code   RO          243    i._printf_core      mc_w.l(printf6.o)
-    0x00000d6c   0x00000026   Code   RO          244    i._printf_post_padding  mc_w.l(printf6.o)
-    0x00000d92   0x00000030   Code   RO          245    i._printf_pre_padding  mc_w.l(printf6.o)
-    0x00000dc2   0x0000000a   Code   RO          247    i._sputc            mc_w.l(printf6.o)
-    0x00000dcc   0x0000006c   Code   RO          343    i.malloc            mc_w.l(malloc.o)
-    0x00000e38   0x00000040   Data   RO           13    .constdata          controller.o
-    0x00000e78   0x00000020   Data   RO           14    .conststring        controller.o
-    0x00000e98   0x00000000   Data   RO          416    Region$$Table       anon$$obj.o
+    0x00000374   0x00000748   Code   RO           12    .text               controller.o
+    0x00000abc   0x00000024   Code   RO           75    .text               mc_w.l(memcpya.o)
+    0x00000ae0   0x0000001c   Code   RO           77    .text               mc_w.l(strcmp.o)
+    0x00000afc   0x0000002c   Code   RO          387    .text               mc_w.l(uidiv.o)
+    0x00000b28   0x00000024   Code   RO          404    .text               mc_w.l(init.o)
+    0x00000b4c   0x00000028   Code   RO          238    i.__0sprintf$6      mc_w.l(printf6.o)
+    0x00000b74   0x000002f4   Code   RO          243    i._printf_core      mc_w.l(printf6.o)
+    0x00000e68   0x00000026   Code   RO          244    i._printf_post_padding  mc_w.l(printf6.o)
+    0x00000e8e   0x00000030   Code   RO          245    i._printf_pre_padding  mc_w.l(printf6.o)
+    0x00000ebe   0x0000000a   Code   RO          247    i._sputc            mc_w.l(printf6.o)
+    0x00000ec8   0x0000006c   Code   RO          343    i.malloc            mc_w.l(malloc.o)
+    0x00000f34   0x00000040   Data   RO           13    .constdata          controller.o
+    0x00000f74   0x00000020   Data   RO           14    .conststring        controller.o
+    0x00000f94   0x00000000   Data   RO          416    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000018, Max: 0xffffffff, ABSOLUTE)

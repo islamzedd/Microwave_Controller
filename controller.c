@@ -39,7 +39,7 @@
 
 int state = INITIAL;
 int timeLeft=0;
-double defroestRate = 0.5;
+double defrostRate = 0.5;
 
 void LCD4bits_Init(void);                                                     //Initialization of LCD Dispaly
 void LCD_Write4bits(unsigned char, unsigned char); //Write data as (4 bits) on LCD
@@ -60,6 +60,12 @@ int sw1( ) ;
 int sw2( ) ;
 void port_f_initialization( ) ;
 void pauseFunc();
+void finished();
+void cookChicken();
+void cookBeef();
+void cookPopcorn();
+void initialReset();
+
 
 int main(){
 	char* key ;
@@ -71,7 +77,7 @@ int main(){
 	while(1){
 		switch(state){
 			case INITIAL:
-				initalReset();
+				initialReset();
 				key = keypad_Getkey();
 				if(strcmp(key,"a")==0){
 					cookPopcorn();
@@ -93,7 +99,7 @@ int main(){
 				}
 				break;
 			case COOKING:
-				turnOnLEDS();
+				led(1);
 				timer();
 				break;
 			case WAITING_FOR_WEIGHT:
@@ -283,7 +289,6 @@ void timer(){
 	int m, s;
 	int i;
 	int j;
-	unsigned char button1_in;
 	char* timer_value = (char*)malloc(13 * sizeof(char));
 	for(i = seconds;i>=0;i--){
 	m = (i)/60;
@@ -301,8 +306,7 @@ void timer(){
 		LCD_WriteString(timer_value);
 		for(j=0;j<10;j++){
 			
-			button1_in = SW1_Input();
-			if((button1_in != 0x10)){
+			if((sw1())){
 				state=PAUSED;
 				return;
 			}
@@ -421,4 +425,43 @@ int sw2( ){
     else if(y == 1){
         state = COOKING;                                        //change current state to cooking state to resume cooking when SW2 is pressed
     }
+}
+	void initialReset(){
+LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
+LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
+timeLeft=0;
+}
+void cookPopcorn(){
+state=COOKING;
+LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
+LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
+timeLeft=60;
+LCD_WriteString("Popcorn");
+delayMs (2000);
+LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
+LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
+}
+void cookBeef(){
+state = WAITING_FOR_WEIGHT;
+LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
+LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
+defrostRate=0.5;//if input =B,kind will hold B to be used in case waiting for weight
+LCD_WriteString("Beef weight?");
+}
+void cookChicken(){
+state = WAITING_FOR_WEIGHT;
+LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
+LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
+defrostRate=0.2;//if input =C,kind will hold C to be used in case waiting for weight
+LCD_WriteString("chicken weight?");}
+
+void finished(){
+int i;
+	startBuzzer();
+	for(i=0;i<6;i++){
+	GPIO_PORTF_DATA_R^=0x0E;
+	delayMs (500);
+	}
+	stopBuzzer();
+	state=INITIAL;
 }
