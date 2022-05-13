@@ -59,6 +59,7 @@ void led( int x ) ;
 int sw1( ) ;
 int sw2( ) ;
 void port_f_initialization( ) ;
+void pauseFunc();
 
 int main(){
 	char* key ;
@@ -100,7 +101,7 @@ int main(){
 			case WAITING_FOR_TIME:
 				break;
 			case PAUSED:
-				paused();
+				pauseFunc();
 				break;
 			case FINISHED:
 				break;
@@ -378,3 +379,46 @@ int sw2( ){
         
     }
 	}
+
+	void pauseFunc(){
+    int x = 0; int y = 0;                                       //variables that will be used as flags for the loops conditions 
+    
+    while((x | y) == 0){                                        //loop that blinks the LEDs till the cooking is resumed or stopped
+        int j = 0; int k = 0;                                   //variables that will be used inside the loop
+        led(1);
+        
+        while(((j < 30) && ((x | y) == 0)) == 1){               //loop that keeps the LEDs on for some time while checking SW1 and SW2
+    	    delayMs(20);
+    	    if(sw1()){
+    	    	 x = 1;
+    	    	 break;
+    	    }    
+    	   	else if(sw2()){
+    	    	 y = 1;
+    	    	 break;
+    	    }
+    	    j++;
+	    }
+	    
+        led(0);
+        
+        while(((k < 30) && ((x | y) == 0)) == 1){               //loop that keeps the LEDs off for some time while checking SW1 and SW2
+    	    delayMs(20);
+    	    if(sw1()){
+    	    	x = 1;
+    	    	break;
+    	    }    
+    	    else if(sw2()){
+    	    	y = 1;
+    	    	break;
+    	    }
+    	    k++;
+        }
+    }
+    if(x == 1){
+        state = INITIAL;                                        //change current state to initial state to stop cooking when SW1 is pressed 
+    }
+    else if(y == 1){
+        state = COOKING;                                        //change current state to cooking state to resume cooking when SW2 is pressed
+    }
+}

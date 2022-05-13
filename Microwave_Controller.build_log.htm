@@ -3,8 +3,8 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\idk14\OneDrive\Desktop\Codes\Tiva C\GitProjects\Microwave_Controller\Microwave_Controller.uvproj
-Project File Date:  05/12/2022
+D:\Projects\Microwave_Controller\Microwave_Controller.uvproj
+Project File Date:  05/13/2022
 
 <h2>Output:</h2>
 Build target 'Target 1'
@@ -25,26 +25,26 @@ controller.c(60): warning:  #1295-D: Deprecated declaration sw2 - give arg types
   int sw2( ) ;
 controller.c(61): warning:  #1295-D: Deprecated declaration port_f_initialization - give arg types
   void port_f_initialization( ) ;
-controller.c(73): warning:  #223-D: function "initalReset" declared implicitly
+controller.c(62): warning:  #1295-D: Deprecated declaration pauseFunc - give arg types
+  void pauseFunc();
+controller.c(74): warning:  #223-D: function "initalReset" declared implicitly
                                 initalReset();
-controller.c(76): warning:  #223-D: function "cookPopcorn" declared implicitly
+controller.c(77): warning:  #223-D: function "cookPopcorn" declared implicitly
                                         cookPopcorn();
-controller.c(80): warning:  #223-D: function "cookBeef" declared implicitly
+controller.c(81): warning:  #223-D: function "cookBeef" declared implicitly
                                         cookBeef();
-controller.c(84): warning:  #223-D: function "cookChicken" declared implicitly
+controller.c(85): warning:  #223-D: function "cookChicken" declared implicitly
                                         cookChicken();
-controller.c(90): warning:  #223-D: function "timeInput" declared implicitly
+controller.c(91): warning:  #223-D: function "timeInput" declared implicitly
                                         timeInput();
-controller.c(95): warning:  #223-D: function "turnOnLEDS" declared implicitly
+controller.c(96): warning:  #223-D: function "turnOnLEDS" declared implicitly
                                 turnOnLEDS();
-controller.c(103): warning:  #223-D: function "paused" declared implicitly
-                                paused();
-controller.c(286): warning:  #223-D: function "malloc" declared implicitly
+controller.c(287): warning:  #223-D: function "malloc" declared implicitly
         char* timer_value = (char*)malloc(13 * sizeof(char));
-controller.c(303): warning:  #223-D: function "SW1_Input" declared implicitly
+controller.c(304): warning:  #223-D: function "SW1_Input" declared implicitly
                         button1_in = SW1_Input();
-controller.c(380): warning:  #1-D: last line of file ends without a newline
-        }
+controller.c(424): warning:  #1-D: last line of file ends without a newline
+  }
 controller.c: 18 warnings, 0 errors
 linking...
 .\Microwave_Controller.axf: Error: L6218E: Undefined symbol SW1_Input (referred from controller.o).
@@ -52,26 +52,12 @@ linking...
 .\Microwave_Controller.axf: Error: L6218E: Undefined symbol cookChicken (referred from controller.o).
 .\Microwave_Controller.axf: Error: L6218E: Undefined symbol cookPopcorn (referred from controller.o).
 .\Microwave_Controller.axf: Error: L6218E: Undefined symbol initalReset (referred from controller.o).
-.\Microwave_Controller.axf: Error: L6218E: Undefined symbol paused (referred from controller.o).
 .\Microwave_Controller.axf: Error: L6218E: Undefined symbol timeInput (referred from controller.o).
 .\Microwave_Controller.axf: Error: L6218E: Undefined symbol turnOnLEDS (referred from controller.o).
 Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 8 error messages.
-".\Microwave_Controller.axf" - 8 Error(s), 18 Warning(s).
+Finished: 1 information, 0 warning and 7 error messages.
+".\Microwave_Controller.axf" - 7 Error(s), 18 Warning(s).
 Target not created
 </pre>
 </body>
 </html>
-5: expected a ";"
-          GPIO_PORTF_DATA_R &= 0b10001 ;
-controller.c(369): error:  #18: expected a ")"
-      if ( GPIO_PORTF_DATA_R  & 0b10000 ){
-controller.c(379): warning:  #1-D: last line of file ends without a newline
-        }
-controller.c: 19 warnings, 12 errors
-".\Microwave_Controller.axf" - 12 Error(s), 19 Warning(s).
-Target not created
-3 errors
-".\Microwave_Controller.axf" - 13 Error(s), 19 Warning(s).
-Target not created
-
