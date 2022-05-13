@@ -286,7 +286,7 @@ unsigned char EXT_SW_Input(){
 }
 void timer(){
 	int seconds = timeLeft;
-	int m, s;
+	int m,s;
 	int i;
 	int j;
 	char* timer_value = (char*)malloc(13 * sizeof(char));
