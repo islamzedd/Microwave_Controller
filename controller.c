@@ -2,6 +2,7 @@
 #include "tm4c123gh6pm.h"
 #include "string.h"
 #include "stdio.h"
+#include "ctype.h"
 #define LCD GPIOB            //LCD port with Tiva C 
 #define RS 0x01                     //RS -> PB0 (0x01)
 #define RW 0x02         //RW -> PB1 (0x02)
@@ -65,6 +66,8 @@ void cookChicken();
 void cookBeef();
 void cookPopcorn();
 void initialReset();
+void weightInput();
+void Err();
 
 
 int main(){
@@ -103,6 +106,7 @@ int main(){
 				timer();
 				break;
 			case WAITING_FOR_WEIGHT:
+				weightInput();
 				break;
 			case WAITING_FOR_TIME:
 				break;
@@ -110,6 +114,7 @@ int main(){
 				pauseFunc();
 				break;
 			case FINISHED:
+				finished();
 				break;
 		}
 	}
@@ -464,4 +469,34 @@ int i;
 	}
 	stopBuzzer();
 	state=INITIAL;
+}
+
+void weightInput(){
+	LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
+	LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+	if(defrostRate==0.5){
+		LCD_WriteString("Beef Weight? ");
+	}
+	else if(defrostRate==0.2){
+		LCD_WriteString("Chicken Weight? ");
+	}
+	char* key = keypad_Getkey();
+	LCD_WriteString(key);
+	delayMs(1000);
+	if(isdigit(key[0]) && (key[0]!= '0')){
+    timeLeft = defrostRate*30*(key[0]-'0');
+		state=COOKING;
+		return;
+    }
+	else{
+		Err();
+		return;
+	}
+}
+
+void Err(){
+	LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
+	LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+	LCD_WriteString("Err");
+	delayMs(2000);
 }
