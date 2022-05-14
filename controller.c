@@ -68,6 +68,7 @@ void cookPopcorn();
 void initialReset();
 void weightInput();
 void Err();
+void Switch3_Interrupt_Init();
 
 
 int main(){
@@ -76,6 +77,7 @@ int main(){
 	buzzerAndSwitchInit();
 	keypad_init();
 	EXT_SW_Input();
+	Switch3_Interrupt_Init();
 	delayMs(500);											//delay 500 ms for LCD (MCU is faster than LCD)
 	while(1){
 		switch(state){
@@ -499,4 +501,23 @@ void Err(){
 	LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
 	LCD_WriteString("Err");
 	delayMs(2000);
+}
+void Switch3_Interrupt_Init(void){
+    GPIOA->IS  |= (1<<2);        // make bit 2 level sensitive /
+    GPIOA->IBE &=~(1<<2);         // trigger is controlled by IEV /
+    GPIOA->IEV &= ~(1<<2);        // falling edge trigger /
+    GPIOA->ICR |= (1<<2);          // clear any prior interrupt /
+    GPIOA->IM  |= (1<<2);          // unmask interrupt /
+    NVIC->ISER[0] |= (1<<0);  // enable gpioA NVIC /
+}
+
+void GPIOA_Handler(void){
+while(state == COOKING){
+    state = PAUSED;
+    pauseFunc();
+    break;
+}
+GPIOA->ICR |= 0x04; //clear the interrupt flag /
+
+return;
 }
