@@ -79,6 +79,7 @@ void initialReset();
 void weightInput();
 void Err();
 void Switch3_Interrupt_Init();
+void timeInput();
 
 
 int main(){
@@ -528,4 +529,90 @@ while(state == COOKING){
 GPIOA->ICR |= 0x04; //clear the interrupt flag /
 
 return;
+}
+
+void timeInput(){
+    char time [4] = {'0','0','0','0'}; //INITIALIZING TIME
+    char* key=0; //INITIALIZING KEY INPUT
+		unsigned char button2;
+		unsigned char button1;
+		
+
+    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);								//Clear the display
+		LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+		LCD_WriteString("Cooking Time?");
+    LCD4bits_Cmd(FORCE_TO_SECOND_LINE);                             //Force the cursor to beginning of 2nd line 1st char
+    LCD4bits_Data(time[0]);
+    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_ONE);                             //Force the cursor to beginning of 2nd line 2nd char
+    LCD4bits_Data(time[1]);
+    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_TWO);                             //Force the cursor to beginning of 2nd line 3rd char
+    LCD4bits_Data(':');
+    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_THREE);                             //Force the cursor to beginning of 2nd line 4th char
+    LCD4bits_Data(time[2]);              
+		LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_FOUR);															//Force the cursor to beginning of 2nd line 5th char
+    LCD4bits_Data(time[3]);
+		
+		button2=SW2_Input();
+		button1=SW1_Input();
+    while (button2 == 0x01){
+
+        while (1){
+            key = keypad_Getkey();
+						if(!(isdigit(key[0]))){
+							key=0;
+						}
+						delayMs(200);
+            if (key != 0){
+                break;
+            }
+            else{
+								button2=SW2_Input();
+								if(button2 != 0x01){
+									if(timeLeft < 1 || timeLeft >1800){
+										Err();
+										state=WAITING_FOR_TIME;
+										break;
+									}
+									else{
+										state=COOKING;
+										return;
+									}
+								}
+								button1=SW1_Input();
+								if(button1 != 0x10){
+									state=INITIAL;
+									return;
+								}
+                delayMs(20);
+            }
+        }
+
+
+        if (key != 0 ){
+            time[0] = time [1];
+            time[1] = time [2];
+            time[2] = time [3];
+            time[3] = key[0];
+						key=0;
+
+
+
+            LCD4bits_Cmd(FORCE_TO_SECOND_LINE);                             //Force the cursor to beginning of 1st line 1st char
+            LCD4bits_Data(time[0]);
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_ONE);                             //Force the cursor to beginning of 1st line 2nd char
+            LCD4bits_Data(time[1]);
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_TWO);                             //Force the cursor to beginning of 1st line 3rd char
+            LCD4bits_Data(':');
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_THREE);                             //Force the cursor to beginning of 1st line 4th char
+            LCD4bits_Data(time[2]);
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_FOUR);                             //Force the cursor to beginning of 1st line 5th char
+            LCD4bits_Data(time[3]);
+
+        }
+      
+
+        timeLeft = (time [3] - '0') + (time [2] - '0')*10 + (time [1] - '0')*60 + (time [0] - '0')*60*10; //converting time to seconds in integer datatype
+      
+
+    }
 }
