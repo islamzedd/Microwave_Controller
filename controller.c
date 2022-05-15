@@ -7,6 +7,14 @@
 #define RS 0x01                     //RS -> PB0 (0x01)
 #define RW 0x02         //RW -> PB1 (0x02)
 #define EN 0x04                    //EN -> PB2 (0x04)
+#define PF4                     (((volatile unsigned long)0x40025040))
+#define PF3                     (((volatile unsigned long)0x40025020))
+#define PF2                     (((volatile unsigned long)0x40025010))
+#define PF1                     (((volatile unsigned long)0x40025008))
+#define PF0                     (((volatile unsigned long)0x40025004))
+#define PF123_mask             0x0E
+#define PF04_mask               0x11
+#define PF_mask                0x20
 
 //STATES MACROS
 #define INITIAL 0
@@ -57,9 +65,11 @@ void stopBuzzer();																 //Stop Buzzer
 unsigned char EXT_SW_Input();											 //Read switch input
 void timer();	
 void led( int x ) ;
-int sw1( ) ;
-int sw2( ) ;
-void port_f_initialization( ) ;
+void RGBLED_Init();
+void SW1_Init();
+void SW2_Init();
+unsigned char SW1_Input();
+unsigned char SW2_Input();
 void pauseFunc();
 void finished();
 void cookChicken();
@@ -73,6 +83,9 @@ void Switch3_Interrupt_Init();
 
 int main(){
 	char* key ;
+	RGBLED_Init();
+  SW1_Init();
+  SW2_Init();
 	LCD4bits_Init();
 	buzzerAndSwitchInit();
 	keypad_init();
@@ -324,20 +337,41 @@ void timer(){
 }
 // Port F initialization
 
-void port_f_initialization( ){
-
-    SYSCTL_RCGCGPIO_R |= 0x10 ;
-    while( ( SYSCTL_PRGPIO_R & 0x10 ) == 0 ) ;
-    GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY ;
-    GPIO_PORTF_CR_R = 0x1F ;
-    GPIO_PORTF_AMSEL_R = 0x00 ;
-    GPIO_PORTF_PCTL_R &=~ (0X000FFFFF) ;
-    GPIO_PORTF_AFSEL_R = 0x00 ;
-    //GPIO_PORTF_PUR_R = 0x00 ;
-    GPIO_PORTF_PDR_R |= 0x11 ;
-    GPIO_PORTF_DIR_R = 0x0E ;
-    GPIO_PORTF_DEN_R = 0x1F ;
-
+void RGBLED_Init(){
+SYSCTL_RCGCGPIO_R |= PF_mask;
+while((SYSCTL_PRGPIO_R & PF_mask)==0);
+GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
+GPIO_PORTF_CR_R |= PF123_mask;
+GPIO_PORTF_AMSEL_R &=~ (PF123_mask);
+GPIO_PORTF_PCTL_R &=~ (0X0000FFF0);
+GPIO_PORTF_AFSEL_R &=~ (PF123_mask);
+GPIO_PORTF_DIR_R |= PF123_mask;
+GPIO_PORTF_DEN_R |= PF123_mask;
+GPIO_PORTF_DATA_R &=~ (PF123_mask);
+}
+void SW1_Init(){
+SYSCTL_RCGCGPIO_R |= PF_mask;
+while((SYSCTL_RCGCGPIO_R & PF_mask)==0);
+GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
+GPIO_PORTF_CR_R |= 0x10;
+GPIO_PORTF_AMSEL_R &=~ 0x10;
+GPIO_PORTF_PCTL_R &=~ (0x000F0000);
+GPIO_PORTF_AFSEL_R &=~ (0x10);
+GPIO_PORTF_DIR_R &=~ 0x10;
+GPIO_PORTF_PUR_R |= 0x10;
+GPIO_PORTF_DEN_R |= 0x10;
+}
+void SW2_Init(){
+SYSCTL_RCGCGPIO_R |= PF_mask;
+while((SYSCTL_RCGCGPIO_R & PF_mask)==0);
+GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
+GPIO_PORTF_CR_R |= 0x01;
+GPIO_PORTF_AMSEL_R &=~ 0x01;
+GPIO_PORTF_PCTL_R &=~ (0x0000000F);
+GPIO_PORTF_AFSEL_R &=~ (0x01);
+GPIO_PORTF_DIR_R &=~ 0x01;
+GPIO_PORTF_PUR_R |= 0x01;
+GPIO_PORTF_DEN_R |= 0x01;
 }
 
 
@@ -358,38 +392,12 @@ void led( int x ){
 }
 
 
-// Switch_1 Function
-
-int sw1( ){
-    
-    if ( GPIO_PORTF_DATA_R  & 0x01 ){
-        
-        return 1 ;                          // return 1 if Switch_1 is pushed
-        
-    }
-    else{
-        
-        return 0 ;                          // return 0 if Switch_1 is not pushed
-        
-    }
+unsigned char SW1_Input(){
+ return GPIO_PORTF_DATA_R & 0x10;
 }
-
-
-// Switch_2 Function
-
-int sw2( ){
-    
-    if ( GPIO_PORTF_DATA_R  & 0x10 ){
-        
-        return 1 ;                          // return 1 if Switch_2 is pushed
-        
-    }
-    else{
-        
-        return 0 ;                          // return 0 if Switch_2 is not pushed
-        
-    }
-	}
+unsigned char SW2_Input(){
+ return GPIO_PORTF_DATA_R & 0x01;
+}
 
 	void pauseFunc(){
     int x = 0; int y = 0;                                       //variables that will be used as flags for the loops conditions 
