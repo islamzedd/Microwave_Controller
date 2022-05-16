@@ -308,6 +308,7 @@ unsigned char EXT_SW_Input(){
 	return GPIO_PORTA_DATA_R & 0x04;
 }
 void timer(){
+	unsigned char button1;
 	int seconds = timeLeft;
 	int m,s;
 	int i;
@@ -327,16 +328,32 @@ void timer(){
 		LCD4bits_Cmd(DISPLAYON_CURSOROFF);
 		
 		LCD_WriteString(timer_value);
+		while(1){ 
+        if((state == PAUSED)|(state == INITIAL))         // check for when the door is closed without pausing, or paused while being closed
+            return;
+				else
+					break;
+			}
+		
 		for(j=0;j<10;j++){
-			
-			if((sw1())){
+			button1=SW1_Input();
+			if(button1 != 0x10){
+				delayMs(200);
 				state=PAUSED;
 				return;
 			}
 			delayMs(100);
 		}
 	}
+	while(1){ 
+        if((state == PAUSED)|(state == INITIAL)){         // check for when the door is closed without pausing, or paused while being closed
+					return;
+				}
+				else
+					break;
+			}
 	state=FINISHED;
+	LCD4bits_Cmd(LCDON_CURSORON);
 }
 // Port F initialization
 
