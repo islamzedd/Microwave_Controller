@@ -473,14 +473,18 @@ LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
 defrostRate=0.2;//if input =C,kind will hold C to be used in case waiting for weight
 LCD_WriteString("chicken weight?");}
 
+
 void finished(){
 int i;
-	startBuzzer();
+	
 	for(i=0;i<6;i++){
 	GPIO_PORTF_DATA_R^=0x0E;
 	delayMs (500);
+		if(	(GPIO_PORTF_DATA_R&0x0E)!=0)
+			startBuzzer();
+		else
+				stopBuzzer();
 	}
-	stopBuzzer();
 	state=INITIAL;
 }
 
