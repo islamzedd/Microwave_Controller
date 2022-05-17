@@ -506,20 +506,22 @@ defrostRate=0.2;//if input =C,kind will hold C to be used in case waiting for we
 LCD_WriteString("chicken weight?");}
 
 
+	
 void finished(){
 int i;
-	
-	for(i=0;i<6;i++){
-	GPIO_PORTF_DATA_R^=0x0E;
-	delayMs (500);
-		if(	(GPIO_PORTF_DATA_R&0x0E)!=0)
-			startBuzzer();
-		else
-				stopBuzzer();
+
+    for(i=0;i<6;i++){
+    GPIO_PORTF_DATA_R^=0x0E;
+    delayMs (500);
+        if(    (GPIO_PORTF_DATA_R&0x0E)==0)
+            startBuzzer();
+        else
+                stopBuzzer();
+    }
+    stopBuzzer();
+    led(0);
+    state=INITIAL;
 	}
-		
-	state=INITIAL;
-}
 
 void weightInput(){
     char* in=0;
