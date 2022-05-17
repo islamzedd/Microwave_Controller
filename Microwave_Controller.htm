@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Microwave_Controller.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Microwave_Controller.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 18 00:59:35 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 18 01:20:49 2022
 <BR><P>
 <H3>Maximum Stack Usage =        128 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1127,11 +1127,11 @@ Global Symbols
 <P><STRONG><a name="[82]"></a>delayMs</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, controller.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookPopcorn
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pauseFunc
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;finished
 </UL>
@@ -1147,14 +1147,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[88]"></a>SW2_Input</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, controller.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
+<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pauseFunc
 </UL>
 
 <P><STRONG><a name="[87]"></a>SW1_Input</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, controller.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<BR><BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pauseFunc
 </UL>
 
@@ -1177,7 +1177,7 @@ Global Symbols
 
 <P><STRONG><a name="[8a]"></a>delayUs</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, controller.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_Getkey
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Data
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Write4bits
 </UL>
@@ -1187,7 +1187,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayUs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Data
 </UL>
 
@@ -1197,25 +1197,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Write4bits
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayUs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
 </UL>
 
-<P><STRONG><a name="[8c]"></a>LCD_WriteString</STRONG> (Thumb, 34 bytes, Stack size 12 bytes, controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
-</UL>
-<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Data
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookPopcorn
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookBeef
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookChicken
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
-</UL>
-
-<P><STRONG><a name="[8d]"></a>LCD4bits_Cmd</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, controller.o(.text))
+<P><STRONG><a name="[8c]"></a>LCD4bits_Cmd</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LCD4bits_Cmd &rArr; LCD_Write4bits
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Write4bits
@@ -1228,21 +1214,35 @@ Global Symbols
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookPopcorn
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookBeef
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookChicken
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
+</UL>
+
+<P><STRONG><a name="[8d]"></a>LCD_WriteString</STRONG> (Thumb, 34 bytes, Stack size 12 bytes, controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Data
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookPopcorn
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookBeef
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookChicken
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
 </UL>
 
 <P><STRONG><a name="[8e]"></a>Err</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Err &rArr; LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 </UL>
 
 <P><STRONG><a name="[8f]"></a>keypad_Getkey</STRONG> (Thumb, 234 bytes, Stack size 80 bytes, controller.o(.text))
@@ -1252,49 +1252,18 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayUs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 </UL>
 
-<P><STRONG><a name="[91]"></a>weightInput</STRONG> (Thumb, 306 bytes, Stack size 40 bytes, controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = weightInput &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
-</UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_Getkey
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SW1_Input
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
-</UL>
-<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[97]"></a>timer</STRONG> (Thumb, 238 bytes, Stack size 32 bytes, controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = timer &rArr; LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
-</UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SW1_Input
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-</UL>
-<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[9a]"></a>timeInput</STRONG> (Thumb, 390 bytes, Stack size 24 bytes, controller.o(.text))
+<P><STRONG><a name="[91]"></a>timeInput</STRONG> (Thumb, 450 bytes, Stack size 24 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = timeInput &rArr; keypad_Getkey
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_Getkey
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Data
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SW1_Input
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SW2_Input
@@ -1303,11 +1272,42 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
+<P><STRONG><a name="[93]"></a>weightInput</STRONG> (Thumb, 218 bytes, Stack size 40 bytes, controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = weightInput &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+</UL>
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_Getkey
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Err
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SW1_Input
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[98]"></a>timer</STRONG> (Thumb, 238 bytes, Stack size 32 bytes, controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = timer &rArr; LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
+</UL>
+<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SW1_Input
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
 <P><STRONG><a name="[9b]"></a>cookChicken</STRONG> (Thumb, 38 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = cookChicken &rArr; LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1315,8 +1315,8 @@ Global Symbols
 <P><STRONG><a name="[9c]"></a>cookBeef</STRONG> (Thumb, 38 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = cookBeef &rArr; LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1324,8 +1324,8 @@ Global Symbols
 <P><STRONG><a name="[9d]"></a>cookPopcorn</STRONG> (Thumb, 52 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = cookPopcorn &rArr; LCD_WriteString &rArr; LCD4bits_Data &rArr; LCD_Write4bits
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteString
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1334,7 +1334,7 @@ Global Symbols
 <P><STRONG><a name="[9e]"></a>initialReset</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = initialReset &rArr; LCD4bits_Cmd &rArr; LCD_Write4bits
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1347,7 +1347,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a4]"></a>keypad_init</STRONG> (Thumb, 238 bytes, Stack size 0 bytes, controller.o(.text))
+<P><STRONG><a name="[a4]"></a>keypad_init</STRONG> (Thumb, 252 bytes, Stack size 0 bytes, controller.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1358,7 +1358,7 @@ Global Symbols
 <P><STRONG><a name="[9f]"></a>LCD4bits_Init</STRONG> (Thumb, 50 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = LCD4bits_Init &rArr; LCD4bits_Cmd &rArr; LCD_Write4bits
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1375,7 +1375,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 186 bytes, Stack size 0 bytes, controller.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 216 bytes, Stack size 0 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = main &rArr; weightInput &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
@@ -1391,11 +1391,11 @@ Global Symbols
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookPopcorn
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookBeef
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cookChicken
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_Getkey
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD4bits_Cmd
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pauseFunc
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;finished
@@ -1410,9 +1410,9 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>
-<P><STRONG><a name="[93]"></a>__rt_ctype_table</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, ctype_o.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<P><STRONG><a name="[92]"></a>__rt_ctype_table</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, ctype_o.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 </UL>
 
 <P><STRONG><a name="[b8]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
@@ -1429,32 +1429,32 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[95]"></a>__aeabi_dmul</STRONG> (Thumb, 228 bytes, Stack size 48 bytes, dmul.o(.text))
+<P><STRONG><a name="[96]"></a>__aeabi_dmul</STRONG> (Thumb, 228 bytes, Stack size 48 bytes, dmul.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
 </UL>
 
-<P><STRONG><a name="[94]"></a>__aeabi_i2d</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, dflti.o(.text))
+<P><STRONG><a name="[95]"></a>__aeabi_i2d</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, dflti.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
 </UL>
 
-<P><STRONG><a name="[96]"></a>__aeabi_d2iz</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, dfixi.o(.text))
+<P><STRONG><a name="[97]"></a>__aeabi_d2iz</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, dfixi.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_d2iz
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
 </UL>
 
-<P><STRONG><a name="[92]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
+<P><STRONG><a name="[94]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;weightInput
 </UL>
 
 <P><STRONG><a name="[ba]"></a>__aeabi_cdcmple</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, cdcmple.o(.text), UNUSED)
@@ -1466,7 +1466,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a9]"></a>__aeabi_llsr</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, llushr.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
 
@@ -1487,8 +1487,8 @@ Global Symbols
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
 
 <P><STRONG><a name="[80]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -1512,10 +1512,10 @@ Global Symbols
 
 <P><STRONG><a name="[c0]"></a>__1sprintf$6</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf6.o(i.__0sprintf$6), UNUSED)
 
-<P><STRONG><a name="[99]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf6.o(i.__0sprintf$6))
+<P><STRONG><a name="[9a]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf6.o(i.__0sprintf$6))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
 </UL>
 
 <P><STRONG><a name="[c1]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -1524,10 +1524,10 @@ Global Symbols
 
 <P><STRONG><a name="[c3]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[98]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
+<P><STRONG><a name="[99]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
 </UL>
 <P>
 <H3>

@@ -3,11 +3,12 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-G:\Files\Codes\Tiva C\Microwave_Controller\Microwave_Controller.uvproj
+D:\esm momiez\Microwave_Controller\Microwave_Controller.uvproj
 Project File Date:  05/18/2022
 
 <h2>Output:</h2>
 Build target 'Target 1'
+assembling startup_TM4C123.s...
 compiling controller.c...
 controller.c(62): warning:  #1295-D: Deprecated declaration buzzerAndSwitchInit - give arg types
   void buzzerAndSwitchInit();
@@ -49,25 +50,12 @@ controller.c(83): warning:  #1295-D: Deprecated declaration Switch3_Interrupt_In
   void Switch3_Interrupt_Init();
 controller.c(84): warning:  #1295-D: Deprecated declaration timeInput - give arg types
   void timeInput();
-controller.c(316): warning:  #223-D: function "malloc" declared implicitly
+controller.c(325): warning:  #223-D: function "malloc" declared implicitly
         char* timer_value = (char*)malloc(13 * sizeof(char));
 controller.c: 21 warnings, 0 errors
 linking...
-Program Size: Code=5276 RO-data=884 RW-data=24 ZI-data=512  
+Program Size: Code=5292 RO-data=884 RW-data=24 ZI-data=512  
 ".\Microwave_Controller.axf" - 0 Error(s), 21 Warning(s).
 </pre>
 </body>
 </html>
-2()){
-controller.c(446): warning:  #223-D: function "sw1" declared implicitly
-            if(sw1()){
-controller.c(450): warning:  #223-D: function "sw2" declared implicitly
-            else if(sw2()){
-controller.c: 25 warnings, 0 errors
-linking...
-.\Microwave_Controller.axf: Error: L6218E: Undefined symbol sw1 (referred from controller.o).
-.\Microwave_Controller.axf: Error: L6218E: Undefined symbol sw2 (referred from controller.o).
-Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 2 error messages.
-".\Microwave_Controller.axf" - 2 Error(s), 25 Warning(s).
-Target not created

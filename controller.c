@@ -85,58 +85,67 @@ void timeInput();
 
 
 int main(){
-	char* key ;
-	RGBLED_Init();
-  SW1_Init();
-  SW2_Init();
-	LCD4bits_Init();
-	buzzerAndSwitchInit();
-	keypad_init();
-	EXT_SW_Input();
-	Switch3_Interrupt_Init();
-	delayMs(500);											//delay 500 ms for LCD (MCU is faster than LCD)
-	while(1){
-		switch(state){
-			case INITIAL:
-				initialReset();
-				key = keypad_Getkey();
-				if(strcmp(key,"a")==0){
-					cookPopcorn();
-					break;
-				}
-				else if(strcmp(key,"b")==0){
-					cookBeef();
-					break;
-				}
-				else if(strcmp(key,"c")==0){
-					cookChicken();
-					break;
-				}
-				else if(strcmp(key,"d")==0){
-					LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
-					LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
-					timeInput();
-					break;
-				}
-				break;
-			case COOKING:
-				led(1);
-				timer();
-				break;
-			case WAITING_FOR_WEIGHT:
-				weightInput();
-				break;
-			case WAITING_FOR_TIME:
-				break;
-			case PAUSED:
-				pauseFunc();
-				break;
-			case FINISHED:
-				finished();
-				break;
-		}
-	}
-	
+    char* key ;
+    RGBLED_Init();
+    SW1_Init();
+    SW2_Init();
+    LCD4bits_Init();
+    buzzerAndSwitchInit();
+    keypad_init();
+    EXT_SW_Input();
+    Switch3_Interrupt_Init();
+    delayMs(500);                                            //delay 500 ms for LCD (MCU is faster than LCD)
+    while(1){
+        switch(state){
+            case INITIAL:
+                initialReset();
+                while(1){
+                    key =keypad_Getkey();
+                    if(key != 0){
+                        break;
+                    }
+                    else{
+                        delayMs(20);
+                    }
+                }
+                if(strcmp(key,"a")==0){
+                    cookPopcorn();
+                    break;
+                }
+                else if(strcmp(key,"b")==0){
+                    cookBeef();
+                    break;
+                }
+                else if(strcmp(key,"c")==0){
+                    cookChicken();
+                    break;
+                }
+                else if(strcmp(key,"d")==0){
+                    state=WAITING_FOR_TIME;
+                    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
+                    LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+                    break;
+                }
+                break;
+            case COOKING:
+                led(1);
+                timer();
+                break;
+            case WAITING_FOR_WEIGHT:
+                weightInput();
+                break;
+            case WAITING_FOR_TIME:
+                delayMs(500); //TO HAVE TIME BETWEEN KEY INPUTS OR IT WILL SPAM THE SAME BUTTON BEFORE I COULD REMOVE MY FINGER
+                timeInput();
+                break;
+            case PAUSED:
+                pauseFunc();
+                break;
+            case FINISHED:
+                finished();
+                break;
+        }
+    }
 
 }
 void LCD4bits_Init(void)
@@ -508,6 +517,7 @@ int i;
 		else
 				stopBuzzer();
 	}
+		
 	state=INITIAL;
 }
 
