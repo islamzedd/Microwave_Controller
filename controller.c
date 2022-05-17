@@ -420,7 +420,9 @@ unsigned char SW2_Input(){
 }
 
 	void pauseFunc(){
-    int x = 0; int y = 0;                                       //variables that will be used as flags for the loops conditions 
+    unsigned char button1;
+		unsigned char button2;
+		int x = 0; int y = 0;                                       //variables that will be used as flags for the loops conditions 
     
     while((x | y) == 0){                                        //loop that blinks the LEDs till the cooking is resumed or stopped
         int j = 0; int k = 0;                                   //variables that will be used inside the loop
@@ -428,11 +430,13 @@ unsigned char SW2_Input(){
         
         while(((j < 30) && ((x | y) == 0)) == 1){               //loop that keeps the LEDs on for some time while checking SW1 and SW2
     	    delayMs(20);
-    	    if(sw1()){
+    	    button1=SW1_Input();
+          button2=SW2_Input();
+          if(button1 != 0x10){
     	    	 x = 1;
     	    	 break;
     	    }    
-    	   	else if(sw2()){
+    	   	else if(button2 != 0x01){
     	    	 y = 1;
     	    	 break;
     	    }
@@ -443,11 +447,13 @@ unsigned char SW2_Input(){
         
         while(((k < 30) && ((x | y) == 0)) == 1){               //loop that keeps the LEDs off for some time while checking SW1 and SW2
     	    delayMs(20);
-    	    if(sw1()){
+    	    button1=SW1_Input();
+          button2=SW2_Input();
+          if(button1 != 0x10){
     	    	x = 1;
     	    	break;
     	    }    
-    	    else if(sw2()){
+    	    else if(button2 != 0x01){
     	    	y = 1;
     	    	break;
     	    }
@@ -506,26 +512,42 @@ int i;
 }
 
 void weightInput(){
-	LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
-	LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
-	if(defrostRate==0.5){
-		LCD_WriteString("Beef Weight? ");
-	}
-	else if(defrostRate==0.2){
-		LCD_WriteString("Chicken Weight? ");
-	}
-	char* key = keypad_Getkey();
-	LCD_WriteString(key);
-	delayMs(1000);
-	if(isdigit(key[0]) && (key[0]!= '0')){
-    timeLeft = defrostRate*30*(key[0]-'0');
-		state=COOKING;
-		return;
+    char* in=0;
+    unsigned char button1;
+    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
+    LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+    if(defrostRate==0.5){
+        LCD_WriteString("Beef Weight?");
     }
-	else{
-		Err();
-		return;
-	}
+    else if(defrostRate==0.2){
+        LCD_WriteString("Chicken Weight?");
+    }
+    delayMs(200);
+    while(1){
+        in = keypad_Getkey();
+        if(in != 0){
+            break;
+        }
+        else{
+            button1=SW1_Input();
+                if(button1 != 0x10){
+                    state=INITIAL;
+                    return;
+                }
+            delayMs(20);
+        }
+    }
+    LCD_WriteString(in);
+    delayMs(1000);
+    if(isdigit(in[0]) && (in[0]!= '0')){
+    timeLeft = defrostRate*60*(in[0]-'0');
+        state=COOKING;
+        return;
+    }
+    else{
+        Err();
+        return;
+    }
 }
 
 void Err(){
