@@ -50,6 +50,7 @@
 
 int state = INITIAL;
 int timeLeft=0;
+int interrupted = 0;
 double defrostRate = 0.5;
 
 void LCD4bits_Init(void);                                                     //Initialization of LCD Dispaly
@@ -509,19 +510,22 @@ LCD_WriteString("chicken weight?");}
 	
 void finished(){
 int i;
-
     for(i=0;i<6;i++){
+			if(interrupted){
+				break;
+      }
     GPIO_PORTF_DATA_R^=0x0E;
     delayMs (500);
-        if(    (GPIO_PORTF_DATA_R&0x0E)==0)
-            startBuzzer();
-        else
-                stopBuzzer();
+    if( ((GPIO_PORTF_DATA_R&0x0E)==0) && !(interrupted))
+			startBuzzer();
+    else
+			stopBuzzer();
     }
     stopBuzzer();
     led(0);
     state=INITIAL;
-	}
+    interrupted=0;
+}
 
 void weightInput(){
     char* in=0;
@@ -582,6 +586,12 @@ while(state == COOKING){
     state = PAUSED;
     pauseFunc();
     break;
+}
+while(state == FINISHED){
+    interrupted = 1;
+    state = INITIAL;
+    stopBuzzer();
+        led(0);
 }
 GPIOA->ICR |= 0x04; //clear the interrupt flag /
 
