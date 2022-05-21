@@ -367,40 +367,41 @@ void timer(){
 // Port F initialization
 
 void RGBLED_Init(){
-SYSCTL_RCGCGPIO_R |= PF_mask;
-while((SYSCTL_PRGPIO_R & PF_mask)==0);
-GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
-GPIO_PORTF_CR_R |= PF123_mask;
-GPIO_PORTF_AMSEL_R &=~ (PF123_mask);
-GPIO_PORTF_PCTL_R &=~ (0X0000FFF0);
-GPIO_PORTF_AFSEL_R &=~ (PF123_mask);
-GPIO_PORTF_DIR_R |= PF123_mask;
-GPIO_PORTF_DEN_R |= PF123_mask;
-GPIO_PORTF_DATA_R &=~ (PF123_mask);
+SYSCTL_RCGCGPIO_R |= PF_mask; //unlock port f clock
+while((SYSCTL_PRGPIO_R & PF_mask)==0);//wait until its unlocked 
+GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;//unlock portf registers
+GPIO_PORTF_CR_R |= PF123_mask;//allow registers to be changed
+GPIO_PORTF_AMSEL_R &=~ (PF123_mask);// disable analog function
+GPIO_PORTF_PCTL_R &=~ (0X0000FFF0);// clear pctl
+GPIO_PORTF_AFSEL_R &=~ (PF123_mask);//disable alternate function
+GPIO_PORTF_DIR_R |= PF123_mask;//set it as output
+GPIO_PORTF_DEN_R |= PF123_mask; //enable digital
+GPIO_PORTF_DATA_R &=~ (PF123_mask);//clear leds
 }
 void SW1_Init(){
-SYSCTL_RCGCGPIO_R |= PF_mask;
-while((SYSCTL_RCGCGPIO_R & PF_mask)==0);
-GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
-GPIO_PORTF_CR_R |= 0x10;
-GPIO_PORTF_AMSEL_R &=~ 0x10;
-GPIO_PORTF_PCTL_R &=~ (0x000F0000);
-GPIO_PORTF_AFSEL_R &=~ (0x10);
-GPIO_PORTF_DIR_R &=~ 0x10;
-GPIO_PORTF_PUR_R |= 0x10;
-GPIO_PORTF_DEN_R |= 0x10;
+SYSCTL_RCGCGPIO_R |= PF_mask; //unlock port f clock
+while((SYSCTL_RCGCGPIO_R & PF_mask)==0);//wait until its unlocked
+GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;//unlock portf registers
+GPIO_PORTF_CR_R |= 0x10;//allow registers to be changed
+GPIO_PORTF_AMSEL_R &=~ 0x10; // disable analog function
+GPIO_PORTF_PCTL_R &=~ (0x000F0000);// clear pctl
+GPIO_PORTF_DIR_R &=~ 0x10;//set it as input
+GPIO_PORTF_PUR_R |= 0x10;//set it with pull-up logic
+GPIO_PORTF_DEN_R |= 0x10;//enable digital
 }
+
+//Initialize SW2
 void SW2_Init(){
-SYSCTL_RCGCGPIO_R |= PF_mask;
-while((SYSCTL_RCGCGPIO_R & PF_mask)==0);
-GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
-GPIO_PORTF_CR_R |= 0x01;
-GPIO_PORTF_AMSEL_R &=~ 0x01;
-GPIO_PORTF_PCTL_R &=~ (0x0000000F);
-GPIO_PORTF_AFSEL_R &=~ (0x01);
-GPIO_PORTF_DIR_R &=~ 0x01;
-GPIO_PORTF_PUR_R |= 0x01;
-GPIO_PORTF_DEN_R |= 0x01;
+SYSCTL_RCGCGPIO_R |= PF_mask;//unlock port f clock
+while((SYSCTL_RCGCGPIO_R & PF_mask)==0); //wait until its unlocked
+GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;//unlock portf registers
+GPIO_PORTF_CR_R |= 0x01;//allow registers to be changed
+GPIO_PORTF_AMSEL_R &=~ 0x01;//disable analog function
+GPIO_PORTF_PCTL_R &=~ (0x0000000F); // clear pctl
+GPIO_PORTF_AFSEL_R &=~ (0x01);//disable alternate function
+GPIO_PORTF_DIR_R &=~ 0x01;//set it as input
+GPIO_PORTF_PUR_R |= 0x01;//set it with pull-up logic
+GPIO_PORTF_DEN_R |= 0x01;//enable digital
 }
 
 
@@ -420,14 +421,19 @@ void led( int x ){
     }
 }
 
+//function to check SW1_Input
 
 unsigned char SW1_Input(){
  return GPIO_PORTF_DATA_R & 0x10;
 }
+
+//function to check SW2_Input
+
 unsigned char SW2_Input(){
  return GPIO_PORTF_DATA_R & 0x01;
 }
 
+//function to handle the paused state
 	void pauseFunc(){
     unsigned char button1;
 		unsigned char button2;
@@ -476,36 +482,41 @@ unsigned char SW2_Input(){
         state = COOKING;                                        //change current state to cooking state to resume cooking when SW2 is pressed
     }
 }
-	void initialReset(){
+//function to reset to initial
+void initialReset(){
 LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
 LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
-timeLeft=0;
+timeLeft=0;//reset timer to zero
 }
+
+//function to setup the cooking of popcorn
 void cookPopcorn(){
-state=COOKING;
+state=COOKING; //set the state 
 LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
 LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
-timeLeft=60;
+timeLeft=60; //set the timer
 LCD_WriteString("Popcorn");
-delayMs (2000);
+delayMs (2000); //show popcorn for 2 seconds
 LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
 LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
 }
+
+//function to setup the cooking of beef
 void cookBeef(){
-state = WAITING_FOR_WEIGHT;
+state = WAITING_FOR_WEIGHT;//sets the state
 LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
 LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
-defrostRate=0.5;//if input =B,kind will hold B to be used in case waiting for weight
+defrostRate=0.5;//if input =B,kind will hold 0.5 to be used in case waiting for weight
 LCD_WriteString("Beef weight?");
 }
+
+//function to setup the cooking of chicken
 void cookChicken(){
-state = WAITING_FOR_WEIGHT;
+state = WAITING_FOR_WEIGHT;//sets the state
 LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN );
 LCD4bits_Cmd(FORCE_TO_FIRST_LINE );
-defrostRate=0.2;//if input =C,kind will hold C to be used in case waiting for weight
+defrostRate=0.2;//if input =C,defrostRate will hold 0.2 to be used in case waiting for weight
 LCD_WriteString("chicken weight?");}
-
-
 	
 //function to be called when the state of the fsm is finished
 void finished(){
