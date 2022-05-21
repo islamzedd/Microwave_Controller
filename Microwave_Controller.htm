@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Microwave_Controller.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Microwave_Controller.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 18 01:26:31 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat May 21 22:54:11 2022
 <BR><P>
 <H3>Maximum Stack Usage =        128 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1117,13 +1117,15 @@ Global Symbols
 <P><STRONG><a name="[7e]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup_tm4c123.o(.text), UNUSED, KEPT)
 
 <P><STRONG><a name="[85]"></a>led</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, controller.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOA_Handler
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pauseFunc
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;finished
 </UL>
 
 <P><STRONG><a name="[84]"></a>stopBuzzer</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, controller.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;finished
+<BR><BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOA_Handler
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;finished
 </UL>
 
 <P><STRONG><a name="[83]"></a>startBuzzer</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, controller.o(.text))
@@ -1142,7 +1144,7 @@ Global Symbols
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;finished
 </UL>
 
-<P><STRONG><a name="[81]"></a>finished</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, controller.o(.text))
+<P><STRONG><a name="[81]"></a>finished</STRONG> (Thumb, 92 bytes, Stack size 8 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = finished
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
@@ -1258,7 +1260,7 @@ Global Symbols
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timeInput
 </UL>
 
-<P><STRONG><a name="[91]"></a>timeInput</STRONG> (Thumb, 452 bytes, Stack size 24 bytes, controller.o(.text))
+<P><STRONG><a name="[91]"></a>timeInput</STRONG> (Thumb, 448 bytes, Stack size 24 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = timeInput &rArr; keypad_Getkey
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
@@ -1349,7 +1351,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a4]"></a>keypad_init</STRONG> (Thumb, 252 bytes, Stack size 0 bytes, controller.o(.text))
+<P><STRONG><a name="[a4]"></a>keypad_init</STRONG> (Thumb, 248 bytes, Stack size 0 bytes, controller.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1377,7 +1379,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 216 bytes, Stack size 0 bytes, controller.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 208 bytes, Stack size 0 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = main &rArr; weightInput &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
@@ -1405,10 +1407,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[a]"></a>GPIOA_Handler</STRONG> (Thumb, 44 bytes, Stack size 4 bytes, controller.o(.text))
+<P><STRONG><a name="[a]"></a>GPIOA_Handler</STRONG> (Thumb, 76 bytes, Stack size 4 bytes, controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = GPIOA_Handler &rArr; pauseFunc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pauseFunc
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stopBuzzer
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>

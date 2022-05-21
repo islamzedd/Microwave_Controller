@@ -60,29 +60,29 @@ void LCD4bits_Cmd(unsigned char);                                     //Write co
 void LCD4bits_Data(unsigned char);                                 //Write a character
 void delayMs (int delay);
 void delayUs (int delay);
-void buzzerAndSwitchInit();
+void buzzerAndSwitchInit(void);
 char* keypad_Getkey(void);												 //Get pressed key on keypad
 void keypad_init(void);														 //Initialize keypad
-void startBuzzer();																 //Start Buzzer
-void stopBuzzer();																 //Stop Buzzer							
-unsigned char EXT_SW_Input();											 //Read switch input
-void timer();	
+void startBuzzer(void);																 //Start Buzzer
+void stopBuzzer(void);																 //Stop Buzzer							
+unsigned char EXT_SW_Input(void);											 //Read switch input
+void timer(void);	
 void led( int x ) ;
-void RGBLED_Init();
-void SW1_Init();
-void SW2_Init();
-unsigned char SW1_Input();
-unsigned char SW2_Input();
-void pauseFunc();
-void finished();
-void cookChicken();
-void cookBeef();
-void cookPopcorn();
-void initialReset();
-void weightInput();
-void Err();
-void Switch3_Interrupt_Init();
-void timeInput();
+void RGBLED_Init(void);
+void SW1_Init(void);
+void SW2_Init(void);
+unsigned char SW1_Input(void);
+unsigned char SW2_Input(void);
+void pauseFunc(void);
+void finished(void);
+void cookChicken(void);
+void cookBeef(void);
+void cookPopcorn(void);
+void initialReset(void);
+void weightInput(void);
+void Err(void);
+void Switch3_Interrupt_Init(void);
+void timeInput(void);
 
 
 int main(){
