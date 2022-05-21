@@ -3,10 +3,14 @@
 #include "string.h"
 #include "stdio.h"
 #include "ctype.h"
+#include "stdlib.h"
+
 #define LCD GPIOB            //LCD port with Tiva C 
 #define RS 0x01                     //RS -> PB0 (0x01)
 #define RW 0x02         //RW -> PB1 (0x02)
 #define EN 0x04                    //EN -> PB2 (0x04)
+
+//Port F Macros
 #define PF4                     (((volatile unsigned long)0x40025040))
 #define PF3                     (((volatile unsigned long)0x40025020))
 #define PF2                     (((volatile unsigned long)0x40025010))
@@ -48,24 +52,25 @@
 #define CURSOR_SECOND_LINE_POSITION_FOUR 0XC4
 #define DISPLAYON_CURSOROFF 0x0C
 
-int state = INITIAL;
-int timeLeft=0;
-int interrupted = 0;
-double defrostRate = 0.5;
+//global variables
+int state = INITIAL; //state of the fsm
+int timeLeft=0; //time left in timer
+int interrupted = 0; //whether the interrupt was used before
+double defrostRate = 0.5; //rate of defrost of chicken or beef
 
-void LCD4bits_Init(void);                                                     //Initialization of LCD Dispaly
-void LCD_Write4bits(unsigned char, unsigned char); //Write data as (4 bits) on LCD
-void LCD_WriteString(char*);                                             //Write a string on LCD 
-void LCD4bits_Cmd(unsigned char);                                     //Write command 
-void LCD4bits_Data(unsigned char);                                 //Write a character
+//Function Prototypes
+void LCD4bits_Init(void);                                                 
+void LCD_Write4bits(unsigned char, unsigned char); 
+void LCD_WriteString(char*);                                          
+void LCD4bits_Cmd(unsigned char);                                
+void LCD4bits_Data(unsigned char);                              
 void delayMs (int delay);
 void delayUs (int delay);
 void buzzerAndSwitchInit(void);
-char* keypad_Getkey(void);												 //Get pressed key on keypad
-void keypad_init(void);														 //Initialize keypad
-void startBuzzer(void);																 //Start Buzzer
-void stopBuzzer(void);																 //Stop Buzzer							
-unsigned char EXT_SW_Input(void);											 //Read switch input
+char* keypad_Getkey(void);											
+void keypad_init(void);														
+void startBuzzer(void);																 
+void stopBuzzer(void);																					
 void timer(void);	
 void led( int x ) ;
 void RGBLED_Init(void);
@@ -86,32 +91,31 @@ void timeInput(void);
 
 
 int main(){
-    char* key ;
-    RGBLED_Init();
-    SW1_Init();
-    SW2_Init();
-    LCD4bits_Init();
-    buzzerAndSwitchInit();
-    keypad_init();
-    EXT_SW_Input();
-    Switch3_Interrupt_Init();
-    delayMs(500);                                            //delay 500 ms for LCD (MCU is faster than LCD)
-    while(1){
+    char* key ;               									// intialise key variable which will store the input (character) from keypad
+    RGBLED_Init();            									// intialise port and pins of leds
+    SW1_Init();               									// intialise port and pins of switch 1	
+    SW2_Init();               									// intialise port and pins of switch 2 
+    LCD4bits_Init();          									// intialise the LCD
+    buzzerAndSwitchInit();    									// intialise buzzer and external switch
+    keypad_init();            									// intialise keypad
+    Switch3_Interrupt_Init(); 							  	// intialise interrupt of switch 3
+    delayMs(500);                							  // delay 500 ms for LCD (MCU is faster than LCD)
+    while(1){                                   // while loop for checking the state
         switch(state){
             case INITIAL:
-                initialReset();
-                while(1){
-                    key =keypad_Getkey();
-                    if(key != 0){
-                        break;
+                initialReset();									// Reset LCD
+                while(1){                       // polling for input from keypad
+                    key =keypad_Getkey();       // get input from keypad
+                    if(key != 0){               
+                        break;									// break from while loop when a key is pressed on keypad
                     }
                     else{
-                        delayMs(20);
+                        delayMs(20);            // delay before checking again for key
                     }
                 }
                 if(strcmp(key,"a")==0){
                     cookPopcorn();
-                    break;
+                    break;											
                 }
                 else if(strcmp(key,"b")==0){
                     cookBeef();
@@ -123,8 +127,8 @@ int main(){
                 }
                 else if(strcmp(key,"d")==0){
                     state=WAITING_FOR_TIME;
-                    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
-                    LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
+                    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);			// clear the lcd
+                    LCD4bits_Cmd(FORCE_TO_FIRST_LINE);      // force cursor in lcd to first line
                     break;
                 }
                 break;
@@ -313,38 +317,34 @@ void stopBuzzer(){
 	GPIO_PORTA_DATA_R &=~ (0x10);
 }
 
-unsigned char EXT_SW_Input(){
-	return GPIO_PORTA_DATA_R & 0x04;
-}
 void timer(){
-	unsigned char button1;
-	int seconds = timeLeft;
+	unsigned char button1;   // button for storing the value of pause button
+	int seconds = timeLeft;  //storing the global value provided in the variable seconds to be used as itiration for the for loop
 	int m,s;
 	int i;
 	int j;
-	char* timer_value = (char*)malloc(13 * sizeof(char));
-	for(i = seconds;i>=0;i--){
-	m = (i)/60;
-	s = (i -(m*60));
+	char* timer_value = (char*)malloc(13 * sizeof(char));   // Allocate memory size for timer_value
+	for(i = seconds;i>=0;i--){                              // for loop used to show the time on LCD every second
+	m = (i)/60;                                             // the minute(s) displayed on LCD
+	s = (i -(m*60));                                        // the second(s) displayed on LCD
 	timeLeft--;
 		
-   sprintf(timer_value,"%02d:%02d",m,s);
+   sprintf(timer_value,"%02d:%02d",m,s);                  // store the string in printf in the variable timer_value
 		
 		
-		LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
-		LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
-		LCD4bits_Cmd(CURSOR_FIRST_LINE_POSITION_FIVE);
-		LCD4bits_Cmd(DISPLAYON_CURSOROFF);
+		LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);				           // Clear the display for intialization 			 
+		LCD4bits_Cmd(CURSOR_FIRST_LINE_POSITION_FIVE);       // Move cursor to the middle of the LCD
+		LCD4bits_Cmd(DISPLAYON_CURSOROFF);                   // Hide the cursor for a better reading
 		
-		LCD_WriteString(timer_value);
+		LCD_WriteString(timer_value);                        // display the time in minutes:seconds on the LCD
 		while(1){ 
         if((state == PAUSED)|(state == INITIAL))         // check for when the door is closed without pausing, or paused while being closed
-            return;
+            return;                                      // if the state is indeed paused or intial, end the timer function 
 				else
-					break;
+					break;                                         // break out of the loop if the state is cooking
 			}
 		
-		for(j=0;j<10;j++){
+		for(j=0;j<10;j++){                                   // polling for pause inpute (switch 1) during cooking                    
 			button1=SW1_Input();
 			if(button1 != 0x10){
 				delayMs(200);
@@ -352,17 +352,17 @@ void timer(){
 				return;
 			}
 			delayMs(100);
-		}
+		}                                                    // end of polling
 	}
 	while(1){ 
-        if((state == PAUSED)|(state == INITIAL)){         // check for when the door is closed without pausing, or paused while being closed
-					return;
+        if((state == PAUSED)|(state == INITIAL)){        // check is repeated before and after the 1 second delay because we don't know when will the interrupt happen
+					return;                                        // if the state is indeed paused or intial, end the timer function    
 				}
 				else
-					break;
+					break;                                         // break out of the loop if the state is cooking
 			}
-	state=FINISHED;
-	LCD4bits_Cmd(LCDON_CURSORON);
+	state=FINISHED;                                        
+	LCD4bits_Cmd(LCDON_CURSORON);                          // Return the cursor back
 }
 // Port F initialization
 
@@ -597,21 +597,18 @@ void Switch3_Interrupt_Init(void){
     NVIC->ISER[0] |= (1<<0);  // enable gpioA NVIC /
 }
 
-void GPIOA_Handler(void){
-while(state == COOKING){
-    state = PAUSED;
-    pauseFunc();
-    break;
+void GPIOA_Handler(void){    // handler function is implemented when the interrupt is triggered (switch 3 is pushed)
+if(state == COOKING){        // if condition to prevent the state being set to "PAUSED" if it's in the initial state
+    state = PAUSED;          // set state to paused
+    pauseFunc();             // call the pause function 
 }
-while(state == FINISHED){
-    interrupted = 1;
-    state = INITIAL;
-    stopBuzzer();
-    led(0);
+while(state == FINISHED){    // in case we open the door (press switch 3) while being in the finished state
+    interrupted = 1;         // global variable used for the purpose of turning off buzzer after exiting the interrupt handler
+    state = INITIAL;         // set state to intial 
+    stopBuzzer();            // stop the buzzer
+        led(0);              // turn off leds
 }
 GPIOA->ICR |= 0x04; //clear the interrupt flag /
-
-return;
 }
 
 /* This function is responsible of taking the custom time input from the user after he presses the button D */

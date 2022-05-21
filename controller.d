@@ -11,3 +11,4 @@
 .\controller.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
 .\controller.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\controller.o: C:\Keil\ARM\ARMCC\bin\..\include\ctype.h
+.\controller.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
