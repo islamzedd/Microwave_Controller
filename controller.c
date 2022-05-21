@@ -662,6 +662,7 @@ void timeInput(){
 																																								/ and 30 minutes                                                   */
 										
 										Err();																											//it Errs the user to alert him to reinput the timer
+										break;
 									}
 									else{																													//starts cooking if the condition above is true
 										state=COOKING;
