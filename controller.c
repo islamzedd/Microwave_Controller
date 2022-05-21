@@ -508,64 +508,70 @@ LCD_WriteString("chicken weight?");}
 
 
 	
+//function to be called when the state of the fsm is finished
 void finished(){
 int i;
     for(i=0;i<6;i++){
-			if(interrupted){
-				break;
+            if(interrupted){ //check if interrupt was pressed while the microwave was finishing
+                break;
       }
-    GPIO_PORTF_DATA_R^=0x0E;
-    delayMs (500);
-    if( ((GPIO_PORTF_DATA_R&0x0E)==0) && !(interrupted))
-			startBuzzer();
+    GPIO_PORTF_DATA_R^=0x0E; //toggle the leds
+    delayMs (500);//wait for half a second
+    if( ((GPIO_PORTF_DATA_R&0x0E)==0) && !(interrupted)) //if the leds are on and the function hasnt been interrupted
+            startBuzzer();
     else
-			stopBuzzer();
+            stopBuzzer();
     }
+        //reset everything at the end of the function
     stopBuzzer();
-    led(0);
-    state=INITIAL;
-    interrupted=0;
+    led(0);//turn off the leds
+    state=INITIAL;//set the state to initial
+    interrupted=0;//reset the interrupted flag
 }
 
+//This function takes the weight of the beef or chicken from the user
+//and checks wheter the input is legal or not then acts accordingly 
 void weightInput(){
-    char* in=0;
-    unsigned char button1;
-    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
-    LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
-    if(defrostRate==0.5){
+    char* in=0; 																			//variable to hold the value of the keypressed on the keypad
+    unsigned char button1; 														//variable to hold the state of sw1
+    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN); 							//clears the lcd screen
+    LCD4bits_Cmd(FORCE_TO_FIRST_LINE);								//goes to the first line of the lcd screen
+    if(defrostRate==0.5){ 														//checks to see if the key pressed to enter this state was 'b' by checking the defrost rate variable
         LCD_WriteString("Beef Weight?");
     }
-    else if(defrostRate==0.2){
+    else if(defrostRate==0.2){												//checks to see if the key pressed to enter this state was 'c' by checking the defrost rate variable
         LCD_WriteString("Chicken Weight?");
     }
-    delayMs(200);
-    while(1){
+    delayMs(200);																			//gives time for the user to remove his finger as the keypad driver continously reads input so it
+																											//will regard the input as multiple clicks of the same key if there wasnt a delay for sampling input
+    while(1){																					//polling for keypad input
         in = keypad_Getkey();
         if(in != 0){
-            break;
+            break; 																		//break from the loop once it gets an input
         }
         else{
-            button1=SW1_Input();
+            button1=SW1_Input();                			//checking if sw1 was clicked to go back to intial state while waiting for input
                 if(button1 != 0x10){
                     state=INITIAL;
                     return;
                 }
-            delayMs(20);
+            delayMs(20);                        			//delay between polling the keypad
         }
     }
-    LCD_WriteString(in);
-    delayMs(1000);
-    if(isdigit(in[0]) && (in[0]!= '0')){
-    timeLeft = defrostRate*60*(in[0]-'0');
-        state=COOKING;
+    LCD_WriteString(in); 															//prints out the key pressed
+    delayMs(1000); 																		//shows it for a second
+    if(isdigit(in[0]) && (in[0]!= '0')){ 							//checks to see if its a number from 1-9
+                timeLeft = defrostRate*60*(in[0]-'0'); //if it is set the timer
+        state=COOKING;																//and start cooking
         return;
     }
     else{
-        Err();
+        Err();    																		//else print err for 2 seconds
         return;
     }
 }
 
+//err helper functions prints out err and shows it for 2 seconds
 void Err(){
 	LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);
 	LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
