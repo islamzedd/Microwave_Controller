@@ -136,7 +136,6 @@ int main(){
                 weightInput();
                 break;
             case WAITING_FOR_TIME:
-                delayMs(500); //TO HAVE TIME BETWEEN KEY INPUTS OR IT WILL SPAM THE SAME BUTTON BEFORE I COULD REMOVE MY FINGER
                 timeInput();
                 break;
             case PAUSED:
@@ -514,7 +513,7 @@ int i;
     for(i=0;i<6;i++){
             if(interrupted){ //check if interrupt was pressed while the microwave was finishing
                 break;
-      }
+						}
     GPIO_PORTF_DATA_R^=0x0E; //toggle the leds
     delayMs (500);//wait for half a second
     if( ((GPIO_PORTF_DATA_R&0x0E)==0) && !(interrupted)) //if the leds are on and the function hasnt been interrupted
@@ -597,71 +596,84 @@ while(state == FINISHED){
     interrupted = 1;
     state = INITIAL;
     stopBuzzer();
-        led(0);
+    led(0);
 }
 GPIOA->ICR |= 0x04; //clear the interrupt flag /
 
 return;
 }
 
+/* This function is responsible of taking the custom time input from the user after he presses the button D */
 void timeInput(){
-    char time [4] = {'0','0','0','0'}; //INITIALIZING TIME
-    char* key=0; //INITIALIZING KEY INPUT
-		unsigned char button2;
-		unsigned char button1;
+    char time [4] = {'0','0','0','0'}; 																					//Initializing time
+    char* key=0; 																																//Initializing key that will store the button pressed from user
+		unsigned char button1;																											//button1 is responsible of returning us to the initial state
+		unsigned char button2;																											//button2 is responsible of starting cooking	
 		
-
-    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);								//Clear the display
-		LCD4bits_Cmd(FORCE_TO_FIRST_LINE);
-		LCD_WriteString("Cooking Time?");
-    LCD4bits_Cmd(FORCE_TO_SECOND_LINE);                             //Force the cursor to beginning of 2nd line 1st char
-    LCD4bits_Data(time[0]);
-    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_ONE);                             //Force the cursor to beginning of 2nd line 2nd char
-    LCD4bits_Data(time[1]);
-    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_TWO);                             //Force the cursor to beginning of 2nd line 3rd char
-    LCD4bits_Data(':');
-    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_THREE);                             //Force the cursor to beginning of 2nd line 4th char
-    LCD4bits_Data(time[2]);              
-		LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_FOUR);															//Force the cursor to beginning of 2nd line 5th char
-    LCD4bits_Data(time[3]);
+																																								//////////////////////////////////////////////////////////
+																																								//									LCD Interfacing											//
+    LCD4bits_Cmd(CLEAR_DISPLAY_SCREEN);																					//Clear the display																			//
+		LCD4bits_Cmd(FORCE_TO_FIRST_LINE);																					//Force the cursor to beginning of 1st line							//
+		LCD_WriteString("Cooking Time?");																						//Write the String "Cooking time?" at cursour position	//
+    LCD4bits_Cmd(FORCE_TO_SECOND_LINE);                            						 	//Force the cursor to beginning of 2nd line 1st char		//
+    LCD4bits_Data(time[0]);																											//Write the char time[0] at cursour position						//
+    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_ONE);                             	//Force the cursor to beginning of 2nd line 2nd char		//
+    LCD4bits_Data(time[1]);																											//Write the char time[1] at cursour position						//
+    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_TWO);                        			//Force the cursor to beginning of 2nd line 3rd char		//
+    LCD4bits_Data(':');																													//Write the char ':' at cursour position								//
+    LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_THREE);                            //Force the cursor to beginning of 2nd line 4th char		//
+    LCD4bits_Data(time[2]);              																				//Write the char time[2] at cursour position						//
+		LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_FOUR);															//Force the cursor to beginning of 2nd line 5th char		//
+    LCD4bits_Data(time[3]);																											//Write the char time[3] at cursour position						//
+																																								//////////////////////////////////////////////////////////
 		
-		button2=SW2_Input();
-		button1=SW1_Input();
-    while (button2 == 0x01){
+		button1=SW1_Input();																												//taking the input from SW1 in tiva C and storing it in button1
+		button2=SW2_Input();																												//taking the input from SW2 in tiva C and storing it in button2
+		
+    while (button2 == 0x01){																										//While the cooking key isn't pressed, apply the following code
 
-        while (1){
-            key = keypad_Getkey();
-						if(!(isdigit(key[0]))){
+        while (1){																															//polling for keypad input
+            key = keypad_Getkey();																							//Taking input from user and storing it in key
+						if(!(isdigit(key[0]))){																							//No input will be taken from user if it's not between 0 and 9
 							key=0;
 						}
-						delayMs(200);
+						delayMs(200);																												/*gives time for the user to remove his finger				   /
+																																								/ as the keypad driver continously reads input so it		 /
+																																								/ will regard the input as multiple clicks of the same	 /
+																																								/ key if there wasnt a delay for sampling input				  */
             if (key != 0){
-                break;
+                break;																													//break from the while(1) once we get an input from keypad
             }
-            else{
-								button2=SW2_Input();
-								if(button2 != 0x01){
-									if(timeLeft < 1 || timeLeft >1800){
-										Err();
-										state=WAITING_FOR_TIME;
-										break;
+            else{																																/*while polling, check button2 & legal input to start cooking or not
+																																								//also, check if button1 is pressed to go back to initial state*/
+							
+								button2=SW2_Input();																						//taking the input from SW2 in tiva C and storing it in button2
+								if(button2 != 0x01){																						//checks if button2(start cooking) is pressed
+									
+									if(timeLeft < 1 || timeLeft >1800){														/*to check if the total time taken from user isNOT between 1 second /
+																																								/ and 30 minutes                                                   */
+										
+										Err();																											//it Errs the user to alert him to reinput the timer
 									}
-									else{
+									else{																													//starts cooking if the condition above is true
 										state=COOKING;
-										return;
+										return;																											/* returns to main function where the timeInput function was called /
+																																								/  and loop in the switch case to apply next phase                 */
 									}
 								}
-								button1=SW1_Input();
-								if(button1 != 0x10){
+								button1=SW1_Input();																						//taking the input from SW1 in tiva C and storing it in button1
+								if(button1 != 0x10){																						//to check if button1(return back to initial state) is pressed
 									state=INITIAL;
-									return;
+									return;																												/* returns to main function where the timeInput function was called /
+																																								/  and loop in the switch case to apply next phase                 */
 								}
-                delayMs(20);
+                delayMs(20);																										//wait 20ms between polls
             }
         }
-
-
-        if (key != 0 ){
+						
+						/* After the user has entered a valid key between 0 and 9, we are going to shift each number by 1                        */
+						/* and get rid of the first number on the left, making the user able to insert infinite numbers untill he wants to start */
+						/* then we reset key back to 0 																																													 */
             time[0] = time [1];
             time[1] = time [2];
             time[2] = time [3];
@@ -670,21 +682,20 @@ void timeInput(){
 
 
 
-            LCD4bits_Cmd(FORCE_TO_SECOND_LINE);                             //Force the cursor to beginning of 1st line 1st char
-            LCD4bits_Data(time[0]);
-            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_ONE);                             //Force the cursor to beginning of 1st line 2nd char
-            LCD4bits_Data(time[1]);
-            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_TWO);                             //Force the cursor to beginning of 1st line 3rd char
-            LCD4bits_Data(':');
-            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_THREE);                             //Force the cursor to beginning of 1st line 4th char
-            LCD4bits_Data(time[2]);
-            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_FOUR);                             //Force the cursor to beginning of 1st line 5th char
-            LCD4bits_Data(time[3]);
+            LCD4bits_Cmd(FORCE_TO_SECOND_LINE);                             		//Force the cursor to beginning of 1st line 1st char
+            LCD4bits_Data(time[0]);																							//Write the char time[0] at cursour position
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_ONE);                      //Force the cursor to beginning of 1st line 2nd char
+            LCD4bits_Data(time[1]);																							//Write the char time[1] at cursour position
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_TWO);                      //Force the cursor to beginning of 1st line 3rd char
+            LCD4bits_Data(':');																									//Write the char ':' at cursour position	
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_THREE);                    //Force the cursor to beginning of 1st line 4th char
+            LCD4bits_Data(time[2]);																							//Write the char time[2] at cursour position
+            LCD4bits_Cmd(CURSOR_SECOND_LINE_POSITION_FOUR);                     //Force the cursor to beginning of 1st line 5th char
+            LCD4bits_Data(time[3]);																							//Write the char time[3] at cursour position
 
-        }
       
-
-        timeLeft = (time [3] - '0') + (time [2] - '0')*10 + (time [1] - '0')*60 + (time [0] - '0')*60*10; //converting time to seconds in integer datatype
+				 /* converting time to seconds in integer datatype */
+        timeLeft = (time [3] - '0') + (time [2] - '0')*10 + (time [1] - '0')*60 + (time [0] - '0')*60*10;
       
 
     }
